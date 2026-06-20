@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr">
+<html lang="ar" dir="ltr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,11 +18,42 @@
         }
 
         body {
-            background: #0d0b0a;
-            color: #d4c9b8;
             font-family: 'Outfit', sans-serif;
             cursor: none;
             overflow-x: hidden;
+            transition: background 0.4s, color 0.4s;
+        }
+
+        /* ===== Dark Mode ===== */
+        [data-theme="dark"] {
+            --bg: #0d0b0a;
+            --bg-card: rgba(20, 18, 16, 0.85);
+            --text: #d4c9b8;
+            --text-secondary: #b8aa94;
+            --text-muted: #5a4f42;
+            --border: rgba(212, 201, 184, 0.06);
+            --border-hover: rgba(212, 201, 184, 0.12);
+            --shadow: rgba(0, 0, 0, 0.6);
+            --gradient: linear-gradient(135deg, #d4c9b8, #c9a87c, #d4c9b8);
+            --header-bg: rgba(13, 11, 10, 0.85);
+        }
+
+        [data-theme="light"] {
+            --bg: #f5f0eb;
+            --bg-card: rgba(255, 252, 248, 0.92);
+            --text: #2a2520;
+            --text-secondary: #5a4f42;
+            --text-muted: #9a8a7a;
+            --border: rgba(42, 37, 32, 0.06);
+            --border-hover: rgba(42, 37, 32, 0.12);
+            --shadow: rgba(0, 0, 0, 0.08);
+            --gradient: linear-gradient(135deg, #2a2520, #c9a87c, #2a2520);
+            --header-bg: rgba(245, 240, 235, 0.9);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
         }
 
         /* ===== خلفية ===== */
@@ -32,21 +63,35 @@
             background:
                 radial-gradient(circle at 30% 20%, rgba(212, 201, 184, 0.04) 0%, transparent 50%),
                 radial-gradient(circle at 70% 80%, rgba(212, 201, 184, 0.03) 0%, transparent 50%),
-                #0d0b0a;
+                var(--bg);
             z-index: -2;
+            transition: 0.4s;
+        }
+
+        [data-theme="light"] .bg {
+            background:
+                radial-gradient(circle at 30% 20%, rgba(201, 168, 124, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(201, 168, 124, 0.04) 0%, transparent 50%),
+                var(--bg);
         }
 
         .bg-grid {
             position: fixed;
             inset: 0;
             background-image:
-                linear-gradient(rgba(212, 201, 184, 0.012) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212, 201, 184, 0.012) 1px, transparent 1px);
+                linear-gradient(rgba(212, 201, 184, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 201, 184, 0.04) 1px, transparent 1px);
             background-size: 60px 60px;
             z-index: -1;
+            opacity: 0.3;
+            transition: 0.4s;
         }
 
-        /* ===== كورسر ===== */
+        [data-theme="light"] .bg-grid {
+            opacity: 0.1;
+        }
+
+        /* ===== كورسر سريع ===== */
         .cursor {
             width: 20px;
             height: 20px;
@@ -55,8 +100,12 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: 0.03s linear;
             mix-blend-mode: difference;
+        }
+
+        [data-theme="light"] .cursor {
+            border-color: #8a7a6a;
         }
 
         .cursor-dot {
@@ -67,19 +116,108 @@
             position: fixed;
             pointer-events: none;
             z-index: 10000;
-            transition: 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: 0.02s linear;
             mix-blend-mode: difference;
         }
 
-        /* ===== الهيكل ===== */
+        [data-theme="light"] .cursor-dot {
+            background: #8a7a6a;
+        }
+
+        /* ===== الهيدر ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--header-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.4s;
+        }
+
+        .header .logo {
+            font-size: 1.6em;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: var(--gradient);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .header .nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 400;
+            transition: 0.25s;
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid transparent;
+        }
+
+        .header .nav a:hover {
+            color: var(--text);
+            border-color: var(--border-hover);
+        }
+
+        .header .nav a.active {
+            color: #c9a87c;
+            border-color: rgba(201, 168, 124, 0.15);
+        }
+
+        [data-theme="light"] .header .nav a.active {
+            color: #8a7a6a;
+        }
+
+        /* ===== زر التبديل ===== */
+        .theme-toggle {
+            background: var(--border);
+            border: 1px solid var(--border-hover);
+            border-radius: 30px;
+            padding: 6px 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .theme-toggle:hover {
+            background: var(--border-hover);
+            color: var(--text);
+        }
+
+        /* ===== المحتوى ===== */
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 30px 80px 60px 30px;
+            padding: 100px 80px 60px 30px;
             position: relative;
         }
 
-        /* ===== الشريط الجانبي (اليمين) ===== */
+        /* ===== الشريط الجانبي ===== */
         .sidebar {
             position: fixed;
             right: 30px;
@@ -88,7 +226,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 18px;
             z-index: 50;
         }
 
@@ -96,7 +234,7 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            border: 1.5px solid rgba(212, 201, 184, 0.15);
+            border: 1.5px solid var(--border-hover);
             background: transparent;
             transition: 0.3s;
             cursor: pointer;
@@ -108,10 +246,21 @@
             background: rgba(201, 168, 124, 0.1);
         }
 
+        [data-theme="light"] .sidebar .dot-nav:hover {
+            border-color: #8a7a6a;
+            background: rgba(138, 122, 106, 0.1);
+        }
+
         .sidebar .dot-nav.active {
             border-color: #c9a87c;
             background: #c9a87c;
             box-shadow: 0 0 20px rgba(201, 168, 124, 0.2);
+        }
+
+        [data-theme="light"] .sidebar .dot-nav.active {
+            border-color: #8a7a6a;
+            background: #8a7a6a;
+            box-shadow: 0 0 20px rgba(138, 122, 106, 0.2);
         }
 
         .sidebar .dot-nav .tooltip {
@@ -119,13 +268,13 @@
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(20, 18, 16, 0.9);
+            background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 201, 184, 0.06);
+            border: 1px solid var(--border);
             padding: 4px 14px;
             border-radius: 6px;
             font-size: 0.7em;
-            color: #b8aa94;
+            color: var(--text-secondary);
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
@@ -138,52 +287,47 @@
 
         .sidebar .line {
             width: 1px;
-            height: 30px;
-            background: rgba(212, 201, 184, 0.06);
+            height: 25px;
+            background: var(--border);
         }
 
-        /* ===== الهيدر ===== */
+        /* ===== HERO ===== */
         .hero {
             text-align: center;
-            padding: 50px 20px 30px;
-            border-bottom: 1px solid rgba(212, 201, 184, 0.04);
+            padding: 30px 20px 20px;
+            border-bottom: 1px solid var(--border);
             margin-bottom: 40px;
         }
 
         .hero .avatar {
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            border: 2px solid rgba(212, 201, 184, 0.08);
+            border: 2px solid var(--border-hover);
             object-fit: cover;
             margin-bottom: 16px;
             transition: 0.3s;
         }
 
         .hero .avatar:hover {
-            border-color: rgba(212, 201, 184, 0.2);
+            border-color: #c9a87c;
             transform: scale(1.02);
         }
 
         .hero .name {
-            font-size: 4em;
+            font-size: 4.5em;
             font-weight: 900;
             letter-spacing: 2px;
-            background: linear-gradient(135deg, #d4c9b8, #c9a87c, #d4c9b8);
+            background: var(--gradient);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shimmer 4s linear infinite;
         }
 
-        @keyframes shimmer {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-
         .hero .title {
             font-size: 1.2em;
-            color: #b8aa94;
+            color: var(--text-secondary);
             font-weight: 300;
             letter-spacing: 3px;
             margin-top: 4px;
@@ -193,8 +337,12 @@
             color: #c9a87c;
         }
 
+        [data-theme="light"] .hero .title span {
+            color: #8a7a6a;
+        }
+
         .hero .location {
-            color: #5a4f42;
+            color: var(--text-muted);
             font-size: 0.9em;
             margin-top: 4px;
         }
@@ -204,11 +352,12 @@
             display: inline-flex;
             align-items: center;
             gap: 14px;
-            background: rgba(212, 201, 184, 0.02);
-            border: 1px solid rgba(212, 201, 184, 0.04);
+            background: var(--border);
+            border: 1px solid var(--border-hover);
             border-radius: 40px;
             padding: 8px 24px 8px 20px;
             margin-top: 16px;
+            transition: 0.4s;
         }
 
         .status-dot {
@@ -236,11 +385,11 @@
 
         .status-label {
             font-size: 0.9em;
-            color: #b8aa94;
+            color: var(--text-secondary);
         }
 
         .status-label strong {
-            color: #d4c9b8;
+            color: var(--text);
             font-weight: 500;
         }
 
@@ -258,37 +407,45 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            color: var(--text);
         }
 
         .section-title .tag {
             font-size: 0.4em;
             font-weight: 300;
-            color: #5a4f42;
-            background: rgba(212, 201, 184, 0.03);
+            color: var(--text-muted);
+            background: var(--border);
             padding: 2px 14px;
             border-radius: 30px;
         }
 
         /* ===== About ===== */
         .about-text {
-            background: rgba(212, 201, 184, 0.02);
-            border: 1px solid rgba(212, 201, 184, 0.04);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 32px 36px;
-            color: #b8aa94;
+            color: var(--text-secondary);
             font-weight: 300;
             line-height: 1.9;
             font-size: 1.05em;
+            transition: 0.4s;
+            box-shadow: 0 10px 40px var(--shadow);
         }
 
         .about-text strong {
-            color: #d4c9b8;
+            color: var(--text);
             font-weight: 500;
         }
 
         .about-text .highlight {
             color: #c9a87c;
             font-weight: 400;
+        }
+
+        [data-theme="light"] .about-text .highlight {
+            color: #8a7a6a;
         }
 
         /* ===== Skills ===== */
@@ -299,19 +456,21 @@
         }
 
         .skill-card {
-            background: rgba(212, 201, 184, 0.02);
-            border: 1px solid rgba(212, 201, 184, 0.04);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 14px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: 0.25s;
+            box-shadow: 0 4px 20px var(--shadow);
         }
 
         .skill-card:hover {
-            background: rgba(212, 201, 184, 0.04);
-            border-color: rgba(212, 201, 184, 0.08);
+            background: var(--border-hover);
+            border-color: var(--border-hover);
             transform: translateY(-2px);
         }
 
@@ -327,7 +486,7 @@
 
         .skill-card .left .name {
             font-size: 0.9em;
-            color: #b8aa94;
+            color: var(--text-secondary);
         }
 
         .skill-card .right {
@@ -339,14 +498,14 @@
         .skill-card .bar {
             width: 60px;
             height: 3px;
-            background: rgba(212, 201, 184, 0.06);
+            background: var(--border);
             border-radius: 3px;
             overflow: hidden;
         }
 
         .skill-card .bar .fill {
             height: 100%;
-            background: linear-gradient(90deg, #c9a87c, #d4c9b8);
+            background: linear-gradient(90deg, #c9a87c, var(--text));
             border-radius: 3px;
             transition: 1.2s;
             width: 0%;
@@ -354,7 +513,7 @@
 
         .skill-card .percent {
             font-size: 0.7em;
-            color: #5a4f42;
+            color: var(--text-muted);
             min-width: 30px;
             text-align: right;
         }
@@ -367,17 +526,19 @@
         }
 
         .project-card {
-            background: rgba(212, 201, 184, 0.02);
-            border: 1px solid rgba(212, 201, 184, 0.04);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
             border-radius: 14px;
             padding: 24px 16px;
             text-align: center;
             transition: 0.25s;
+            box-shadow: 0 4px 20px var(--shadow);
         }
 
         .project-card:hover {
-            background: rgba(212, 201, 184, 0.04);
-            border-color: rgba(212, 201, 184, 0.08);
+            background: var(--border-hover);
+            border-color: var(--border-hover);
             transform: translateY(-4px);
         }
 
@@ -388,11 +549,11 @@
         .project-card .title {
             font-size: 0.95em;
             font-weight: 600;
-            color: #d4c9b8;
+            color: var(--text);
         }
         .project-card .desc {
             font-size: 0.75em;
-            color: #5a4f42;
+            color: var(--text-muted);
             margin-top: 4px;
         }
 
@@ -404,23 +565,25 @@
         }
 
         .social-link {
-            background: rgba(212, 201, 184, 0.02);
-            border: 1px solid rgba(212, 201, 184, 0.04);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
             border-radius: 40px;
             padding: 10px 24px;
-            color: #b8aa94;
+            color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.9em;
             transition: 0.25s;
             display: flex;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 4px 20px var(--shadow);
         }
 
         .social-link:hover {
-            background: rgba(212, 201, 184, 0.04);
-            border-color: rgba(212, 201, 184, 0.08);
-            color: #d4c9b8;
+            background: var(--border-hover);
+            border-color: var(--border-hover);
+            color: var(--text);
             transform: translateY(-2px);
         }
 
@@ -428,34 +591,49 @@
         .footer {
             text-align: center;
             padding: 40px 20px 10px;
-            color: #3a332c;
+            color: var(--text-muted);
             font-size: 0.75em;
-            border-top: 1px solid rgba(212, 201, 184, 0.02);
+            border-top: 1px solid var(--border);
             margin-top: 40px;
         }
 
         /* ===== استجابة ===== */
         @media (max-width: 768px) {
+            .header {
+                padding: 10px 16px;
+            }
+            .header .logo {
+                font-size: 1.2em;
+            }
+            .header .nav a {
+                font-size: 0.75em;
+                padding: 4px 10px;
+            }
+            .header .nav {
+                gap: 6px;
+            }
+            .theme-toggle {
+                font-size: 0.75em;
+                padding: 4px 10px;
+            }
+
             .container {
-                padding: 20px 16px 40px;
+                padding: 80px 16px 40px;
             }
 
             .sidebar {
-                right: 12px;
+                right: 10px;
                 gap: 14px;
             }
-
             .sidebar .dot-nav {
                 width: 8px;
                 height: 8px;
             }
-
             .sidebar .dot-nav .tooltip {
                 display: none;
             }
-
             .sidebar .line {
-                height: 20px;
+                height: 18px;
             }
 
             .hero .name {
@@ -498,6 +676,13 @@
             .hero .name {
                 font-size: 2.2em;
             }
+            .header .nav a span {
+                display: none;
+            }
+            .header .nav a {
+                font-size: 1.1em;
+                padding: 4px 8px;
+            }
         }
     </style>
 </head>
@@ -505,10 +690,25 @@
 
     <div class="bg"></div>
     <div class="bg-grid"></div>
+
+    <!-- ===== كورسر سريع ===== -->
     <div class="cursor" id="cursor"></div>
     <div class="cursor-dot" id="cursorDot"></div>
 
-    <!-- ===== الشريط الجانبي (يمين) ===== -->
+    <!-- ===== الهيدر ===== -->
+    <header class="header">
+        <div class="logo">Demon</div>
+        <nav class="nav">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+            <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+        </nav>
+    </header>
+
+    <!-- ===== الشريط الجانبي ===== -->
     <nav class="sidebar" id="sidebarNav">
         <div class="dot-nav active" data-target="home">
             <span class="tooltip">Home</span>
@@ -638,7 +838,7 @@
         // ====== كود التشغيل ======
         // ============================================================
 
-        // ----- كورسر -----
+        // ----- كورسر سريع -----
         const cursor = document.getElementById('cursor');
         const dot = document.getElementById('cursorDot');
 
@@ -649,7 +849,7 @@
             dot.style.top = e.clientY + 'px';
         });
 
-        document.querySelectorAll('a, .skill-card, .project-card, .social-link').forEach(el => {
+        document.querySelectorAll('a, button, .skill-card, .project-card, .social-link, .dot-nav').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.width = '32px';
                 cursor.style.height = '32px';
@@ -711,7 +911,18 @@
             pGrid.appendChild(card);
         });
 
-        // ===== التنقل عبر النقاط الجانبية =====
+        // ===== التبديل بين الوضعين =====
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '🌙 Dark' : '☀️ Light';
+        });
+
+        // ===== التنقل بالنقاط =====
         const dots = document.querySelectorAll('.dot-nav');
         const sections = ['home', 'about', 'skills', 'projects', 'contact'];
 
@@ -724,12 +935,14 @@
             });
         });
 
-        // ===== تحديث النقاط النشطة عند التمرير =====
+        // ===== تحديث النقاط والناف =====
         let isScrolling = false;
+        const navLinks = document.querySelectorAll('.header .nav a');
+
         window.addEventListener('scroll', () => {
             if (!isScrolling) {
                 window.requestAnimationFrame(() => {
-                    const scrollY = window.scrollY + 100;
+                    const scrollY = window.scrollY + 120;
 
                     sections.forEach((id, index) => {
                         const section = document.getElementById(id);
@@ -740,6 +953,9 @@
                             if (scrollY >= offsetTop && scrollY < offsetBottom) {
                                 dots.forEach(d => d.classList.remove('active'));
                                 dots[index].classList.add('active');
+
+                                navLinks.forEach(l => l.classList.remove('active'));
+                                navLinks[index].classList.add('active');
                             }
                         }
                     });
@@ -747,6 +963,19 @@
                 });
                 isScrolling = true;
             }
+        });
+
+        // ===== تنقل الهيدر =====
+        navLinks.forEach((link, index) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.getElementById(sections[index]);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
         });
     </script>
 
