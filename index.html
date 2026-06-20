@@ -19,7 +19,6 @@
             font-family: 'Outfit', sans-serif;
             cursor: none;
             overflow-x: hidden;
-            padding: 20px;
         }
 
         /* ===== خلفية ===== */
@@ -37,17 +36,17 @@
             position: fixed;
             inset: 0;
             background-image:
-                linear-gradient(rgba(212, 201, 184, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212, 201, 184, 0.015) 1px, transparent 1px);
+                linear-gradient(rgba(212, 201, 184, 0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 201, 184, 0.012) 1px, transparent 1px);
             background-size: 60px 60px;
             z-index: -1;
         }
 
         /* ===== كورسر ===== */
         .cursor {
-            width: 18px;
-            height: 18px;
-            border: 2px solid #d4c9b8;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #c9a87c;
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
@@ -59,7 +58,7 @@
         .cursor-dot {
             width: 4px;
             height: 4px;
-            background: #d4c9b8;
+            background: #c9a87c;
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
@@ -68,40 +67,251 @@
             mix-blend-mode: difference;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px 0 40px;
+        /* ===== الهيكل العام ===== */
+        .app {
+            display: flex;
+            min-height: 100vh;
         }
 
-        /* ===== الهيدر ===== */
-        .hero {
-            text-align: center;
-            padding: 60px 20px 40px;
-            border-bottom: 1px solid rgba(212, 201, 184, 0.06);
-            margin-bottom: 40px;
-        }
-
-        .hero .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 2px solid rgba(212, 201, 184, 0.1);
-            object-fit: cover;
-            margin-bottom: 20px;
+        /* ===== سايد بار ===== */
+        .sidebar {
+            width: 260px;
+            background: rgba(20, 18, 16, 0.7);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(212, 201, 184, 0.04);
+            padding: 30px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
             transition: 0.3s;
         }
 
-        .hero .avatar:hover {
-            border-color: rgba(212, 201, 184, 0.25);
-            transform: scale(1.02);
-        }
-
-        .hero .name {
-            font-size: 4em;
+        .sidebar .logo {
+            font-size: 1.8em;
             font-weight: 900;
             letter-spacing: 2px;
-            background: linear-gradient(135deg, #d4c9b8, #b8aa94, #d4c9b8);
+            background: linear-gradient(135deg, #d4c9b8, #c9a87c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .sidebar .logo small {
+            display: block;
+            font-size: 0.25em;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: #5a4f42;
+            -webkit-text-fill-color: #5a4f42;
+            margin-top: 2px;
+        }
+
+        .sidebar .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid rgba(212, 201, 184, 0.08);
+            object-fit: cover;
+            margin: 0 auto 16px;
+            transition: 0.3s;
+        }
+
+        .sidebar .avatar:hover {
+            border-color: rgba(212, 201, 184, 0.2);
+        }
+
+        .sidebar .user-name {
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #d4c9b8;
+        }
+
+        .sidebar .user-title {
+            text-align: center;
+            font-size: 0.75em;
+            color: #5a4f42;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .nav {
+            list-style: none;
+            flex: 1;
+        }
+
+        .sidebar .nav li {
+            margin-bottom: 4px;
+        }
+
+        .sidebar .nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            color: #b8aa94;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 400;
+            transition: 0.25s;
+            border: 1px solid transparent;
+        }
+
+        .sidebar .nav a:hover {
+            background: rgba(212, 201, 184, 0.04);
+            border-color: rgba(212, 201, 184, 0.06);
+            color: #d4c9b8;
+        }
+
+        .sidebar .nav a.active {
+            background: rgba(201, 168, 124, 0.06);
+            border-color: rgba(201, 168, 124, 0.12);
+            color: #c9a87c;
+        }
+
+        .sidebar .nav a .icon {
+            font-size: 1.1em;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: rgba(212, 201, 184, 0.02);
+            border: 1px solid rgba(212, 201, 184, 0.04);
+            border-radius: 12px;
+            margin-top: auto;
+        }
+
+        .sidebar .status-indicator .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #43b581;
+            flex-shrink: 0;
+        }
+
+        .sidebar .status-indicator .dot.idle {
+            background: #faa61a;
+        }
+        .sidebar .status-indicator .dot.dnd {
+            background: #f04747;
+        }
+        .sidebar .status-indicator .dot.offline {
+            background: #747f8d;
+        }
+
+        .sidebar .status-indicator .label {
+            font-size: 0.8em;
+            color: #b8aa94;
+        }
+
+        .sidebar .status-indicator .label strong {
+            color: #d4c9b8;
+            font-weight: 400;
+        }
+
+        /* ===== المحتوى الرئيسي ===== */
+        .main {
+            margin-left: 260px;
+            flex: 1;
+            padding: 0 40px 40px;
+        }
+
+        /* ===== الهيدر العلوي ===== */
+        .top-header {
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(212, 201, 184, 0.04);
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .top-header .page-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #d4c9b8;
+        }
+
+        .top-header .page-title span {
+            color: #c9a87c;
+        }
+
+        .top-header .header-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .top-header .header-nav a {
+            padding: 8px 18px;
+            border-radius: 30px;
+            color: #b8aa94;
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 400;
+            transition: 0.25s;
+            border: 1px solid transparent;
+        }
+
+        .top-header .header-nav a:hover {
+            background: rgba(212, 201, 184, 0.04);
+            border-color: rgba(212, 201, 184, 0.06);
+            color: #d4c9b8;
+        }
+
+        .top-header .header-nav a.active {
+            background: rgba(201, 168, 124, 0.06);
+            border-color: rgba(201, 168, 124, 0.1);
+            color: #c9a87c;
+        }
+
+        /* ===== الأقسام ===== */
+        .section {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title .tag {
+            font-size: 0.4em;
+            font-weight: 300;
+            color: #5a4f42;
+            background: rgba(212, 201, 184, 0.03);
+            padding: 2px 14px;
+            border-radius: 30px;
+        }
+
+        /* ===== Hero ===== */
+        .hero-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero-section .hero-title {
+            font-size: 3.5em;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #d4c9b8, #c9a87c, #d4c9b8);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -113,7 +323,7 @@
             100% { background-position: 200% center; }
         }
 
-        .hero .title {
+        .hero-section .hero-sub {
             font-size: 1.2em;
             color: #b8aa94;
             font-weight: 300;
@@ -121,99 +331,45 @@
             margin-top: 4px;
         }
 
-        .hero .title span {
+        .hero-section .hero-sub span {
             color: #c9a87c;
         }
 
-        .hero .location {
+        .hero-section .hero-location {
             color: #5a4f42;
             font-size: 0.9em;
             margin-top: 4px;
         }
 
-        /* ===== الحالة ===== */
-        .status-box {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            background: rgba(212, 201, 184, 0.03);
-            border: 1px solid rgba(212, 201, 184, 0.06);
-            border-radius: 40px;
-            padding: 8px 24px 8px 20px;
-            margin-top: 18px;
-        }
-
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .status-dot.online {
-            background: #43b581;
-            box-shadow: 0 0 25px rgba(67, 181, 129, 0.2);
-        }
-        .status-dot.idle {
-            background: #faa61a;
-            box-shadow: 0 0 25px rgba(250, 166, 26, 0.2);
-        }
-        .status-dot.dnd {
-            background: #f04747;
-            box-shadow: 0 0 25px rgba(240, 71, 71, 0.2);
-        }
-        .status-dot.offline {
-            background: #747f8d;
-        }
-
-        .status-label {
-            font-size: 0.9em;
+        /* ===== About ===== */
+        .about-text {
+            background: rgba(212, 201, 184, 0.02);
+            border: 1px solid rgba(212, 201, 184, 0.04);
+            border-radius: 16px;
+            padding: 32px 36px;
             color: #b8aa94;
+            font-weight: 300;
+            line-height: 1.9;
+            font-size: 1.05em;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .status-label strong {
+        .about-text strong {
             color: #d4c9b8;
             font-weight: 500;
         }
 
-        .status-badge {
-            font-size: 0.75em;
-            padding: 4px 16px;
-            border-radius: 30px;
-            background: rgba(212, 201, 184, 0.04);
-            border: 1px solid rgba(212, 201, 184, 0.06);
-            color: #b8aa94;
+        .about-text .highlight {
+            color: #c9a87c;
+            font-weight: 400;
         }
 
-        /* ===== الأقسام ===== */
-        .section-title {
-            font-size: 1.8em;
-            font-weight: 700;
-            margin: 50px 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section-title .tag {
-            font-size: 0.45em;
-            font-weight: 300;
-            color: #5a4f42;
-            background: rgba(212, 201, 184, 0.03);
-            padding: 2px 14px;
-            border-radius: 30px;
-        }
-
-        .section-sub {
-            color: #5a4f42;
-            font-weight: 300;
-            margin-bottom: 20px;
-        }
-
-        /* ===== المهارات ===== */
+        /* ===== Skills ===== */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 10px;
         }
 
@@ -278,10 +434,10 @@
             text-align: right;
         }
 
-        /* ===== المشاريع ===== */
+        /* ===== Projects ===== */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 16px;
         }
 
@@ -315,33 +471,12 @@
             margin-top: 4px;
         }
 
-        /* ===== عني ===== */
-        .about-text {
-            background: rgba(212, 201, 184, 0.02);
-            border: 1px solid rgba(212, 201, 184, 0.04);
-            border-radius: 16px;
-            padding: 28px 32px;
-            max-width: 800px;
-            color: #b8aa94;
-            font-weight: 300;
-            line-height: 1.8;
-        }
-
-        .about-text strong {
-            color: #d4c9b8;
-            font-weight: 500;
-        }
-
-        .about-text .highlight {
-            color: #c9a87c;
-        }
-
-        /* ===== السوشال ===== */
+        /* ===== Social ===== */
         .social-links {
             display: flex;
             gap: 14px;
             flex-wrap: wrap;
-            margin-top: 10px;
+            justify-content: center;
         }
 
         .social-link {
@@ -365,28 +500,111 @@
             transform: translateY(-2px);
         }
 
-        .social-link .sicon {
-            font-size: 1.1em;
-        }
-
-        /* ===== الفوتر ===== */
-        footer {
+        /* ===== Footer ===== */
+        .footer {
             text-align: center;
-            padding: 40px 20px 10px;
+            padding: 30px 20px 10px;
             color: #3a332c;
             font-size: 0.75em;
-            border-top: 1px solid rgba(212, 201, 184, 0.03);
-            margin-top: 50px;
+            border-top: 1px solid rgba(212, 201, 184, 0.02);
+            margin-top: 40px;
         }
 
         /* ===== استجابة ===== */
-        @media (max-width: 700px) {
-            .hero .name {
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 220px;
+                padding: 20px 14px;
+            }
+            .main {
+                margin-left: 220px;
+                padding: 0 24px 30px;
+            }
+            .hero-section .hero-title {
                 font-size: 2.8em;
             }
-            .hero .avatar {
-                width: 90px;
-                height: 90px;
+        }
+
+        @media (max-width: 700px) {
+            .app {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 16px 20px;
+                border-right: none;
+                border-bottom: 1px solid rgba(212, 201, 184, 0.04);
+                backdrop-filter: blur(10px);
+                gap: 10px;
+                align-items: center;
+            }
+            .sidebar .logo {
+                margin-bottom: 0;
+                font-size: 1.4em;
+                flex: 1;
+            }
+            .sidebar .logo small {
+                display: none;
+            }
+            .sidebar .avatar {
+                width: 44px;
+                height: 44px;
+                margin: 0;
+            }
+            .sidebar .user-name,
+            .sidebar .user-title {
+                display: none;
+            }
+            .sidebar .nav {
+                display: flex;
+                gap: 4px;
+                flex: 1;
+                flex-wrap: wrap;
+            }
+            .sidebar .nav li {
+                margin: 0;
+            }
+            .sidebar .nav a {
+                padding: 6px 12px;
+                font-size: 0.8em;
+                border-radius: 8px;
+            }
+            .sidebar .nav a .icon {
+                font-size: 0.9em;
+                width: 20px;
+            }
+            .sidebar .status-indicator {
+                padding: 6px 12px;
+                font-size: 0.8em;
+                margin: 0;
+            }
+            .main {
+                margin-left: 0;
+                padding: 0 16px 30px;
+            }
+            .top-header {
+                padding: 16px 0;
+                margin-bottom: 24px;
+            }
+            .top-header .page-title {
+                font-size: 1.2em;
+            }
+            .top-header .header-nav a {
+                padding: 6px 12px;
+                font-size: 0.75em;
+            }
+            .hero-section .hero-title {
+                font-size: 2.2em;
+            }
+            .hero-section .hero-sub {
+                font-size: 1em;
+            }
+            .about-text {
+                padding: 20px;
+                font-size: 0.95em;
             }
             .skills-grid {
                 grid-template-columns: 1fr;
@@ -395,15 +613,7 @@
                 grid-template-columns: 1fr 1fr;
             }
             .section-title {
-                font-size: 1.4em;
-            }
-            .about-text {
-                padding: 20px;
-            }
-            .status-box {
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 8px 16px;
+                font-size: 1.5em;
             }
         }
 
@@ -413,6 +623,16 @@
             }
             .social-links {
                 justify-content: center;
+            }
+            .sidebar .nav a span:not(.icon) {
+                display: none;
+            }
+            .sidebar .nav a {
+                padding: 8px 12px;
+            }
+            .sidebar .nav a .icon {
+                font-size: 1.1em;
+                width: 28px;
             }
         }
     </style>
@@ -424,78 +644,122 @@
     <div class="cursor" id="cursor"></div>
     <div class="cursor-dot" id="cursorDot"></div>
 
-    <div class="container">
+    <div class="app">
 
-        <!-- ===== الهيدر ===== -->
-        <div class="hero">
+        <!-- ===== سايد بار ===== -->
+        <aside class="sidebar">
+            <div class="logo">
+                Demon
+                <small>PORTFOLIO</small>
+            </div>
+
             <img class="avatar"
                  src="https://cdn.discordapp.com/attachments/1491039082380394629/1517838732043227286/download.jpg?ex=6a37bcf9&is=6a366b79&hm=9fea516e57d5673cfaffedf9cea563f7498b1bb690075d5802db11f2ca8a422b&"
                  alt="Demon">
 
-            <div class="name">Demon</div>
-            <div class="title">Full Stack · <span>Minecraft Expert</span></div>
-            <div class="location">🇩🇿 Algeria · 15 Nov 2011</div>
+            <div class="user-name">Demon</div>
+            <div class="user-title">Full Stack · Minecraft</div>
 
-            <!-- الحالة -->
-            <div class="status-box">
-                <span class="status-dot online" id="statusDot"></span>
-                <span class="status-label" id="statusLabel"><strong>Demon</strong> · 🟢 Online</span>
-                <span class="status-badge" id="workBadge">⚡ Working</span>
+            <ul class="nav">
+                <li><a href="#" class="active"><span class="icon">🏠</span> Home</a></li>
+                <li><a href="#about"><span class="icon">👤</span> About</a></li>
+                <li><a href="#skills"><span class="icon">🛠️</span> Skills</a></li>
+                <li><a href="#projects"><span class="icon">🚀</span> Projects</a></li>
+                <li><a href="#contact"><span class="icon">📬</span> Contact</a></li>
+            </ul>
+
+            <div class="status-indicator">
+                <span class="dot online" id="sideDot"></span>
+                <span class="label" id="sideLabel"><strong>Demon</strong> · Online</span>
             </div>
-        </div>
+        </aside>
 
-        <!-- ===== عني ===== -->
-        <div class="section-title">👤 About Me</div>
-        <div class="about-text">
-            I'm <strong>Demon</strong>, a passionate developer from Algeria with deep expertise in
-            <span class="highlight">Minecraft server architecture</span>,
-            <span class="highlight">full-stack web development</span>, and
-            <span class="highlight">Discord bot engineering</span>.
-            <br><br>
-            I believe in <strong>clean code</strong>, <strong>real solutions</strong>, and <strong>no fluff</strong>.
-            Currently building next-gen Minecraft plugins & scalable web systems.
-        </div>
+        <!-- ===== المحتوى الرئيسي ===== -->
+        <main class="main">
 
-        <!-- ===== المهارات ===== -->
-        <div class="section-title">
-            🛠️ Skills
-            <span class="tag">قابلة للتعديل</span>
-        </div>
-        <div class="skills-grid" id="skillsGrid"></div>
+            <!-- ===== الهيدر العلوي ===== -->
+            <header class="top-header">
+                <div class="page-title">Welcome to <span>Demon's</span> Space</div>
+                <nav class="header-nav">
+                    <a href="#" class="active">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                </nav>
+            </header>
 
-        <!-- ===== المشاريع ===== -->
-        <div class="section-title">
-            🚀 Projects
-            <span class="tag">أعمالي</span>
-        </div>
-        <div class="projects-grid" id="projectsGrid"></div>
+            <!-- ===== HERO ===== -->
+            <section class="section hero-section" id="home">
+                <div class="hero-title">Demon</div>
+                <div class="hero-sub">Full Stack · <span>Minecraft Expert</span></div>
+                <div class="hero-location">🇩🇿 Algeria · 15 Nov 2011</div>
+            </section>
 
-        <!-- ===== السوشال ===== -->
-        <div class="section-title">
-            🌐 Connect
-            <span class="tag">تواصل</span>
-        </div>
-        <div class="social-links">
-            <a href="#" class="social-link"><span class="sicon">🐦</span> Twitter</a>
-            <a href="#" class="social-link"><span class="sicon">💬</span> Discord</a>
-            <a href="#" class="social-link"><span class="sicon">🐙</span> GitHub</a>
-            <a href="#" class="social-link"><span class="sicon">📺</span> YouTube</a>
-        </div>
+            <!-- ===== ABOUT ===== -->
+            <section class="section" id="about">
+                <div class="section-title">
+                    👤 About Me
+                    <span class="tag">من أنا</span>
+                </div>
+                <div class="about-text">
+                    I'm <strong>Demon</strong>, a passionate developer from Algeria with deep expertise in
+                    <span class="highlight">Minecraft server architecture</span>,
+                    <span class="highlight">full-stack web development</span>, and
+                    <span class="highlight">Discord bot engineering</span>.
+                    <br><br>
+                    I believe in <strong>clean code</strong>, <strong>real solutions</strong>, and <strong>no fluff</strong>.
+                    Currently building next-gen Minecraft plugins & scalable web systems.
+                    <br><br>
+                    <span class="highlight">"Building systems that just work."</span>
+                </div>
+            </section>
 
-        <footer>
-            © 2026 Demon · Built with ❤️ and ☕ · No sugarcoating, just code.
-        </footer>
+            <!-- ===== SKILLS ===== -->
+            <section class="section" id="skills">
+                <div class="section-title">
+                    🛠️ Skills
+                    <span class="tag">قابلة للتعديل</span>
+                </div>
+                <div class="skills-grid" id="skillsGrid"></div>
+            </section>
+
+            <!-- ===== PROJECTS ===== -->
+            <section class="section" id="projects">
+                <div class="section-title">
+                    🚀 Projects
+                    <span class="tag">أعمالي</span>
+                </div>
+                <div class="projects-grid" id="projectsGrid"></div>
+            </section>
+
+            <!-- ===== CONTACT ===== -->
+            <section class="section" id="contact">
+                <div class="section-title">
+                    📬 Connect
+                    <span class="tag">تواصل</span>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><span>🐦</span> Twitter</a>
+                    <a href="#" class="social-link"><span>💬</span> Discord</a>
+                    <a href="#" class="social-link"><span>🐙</span> GitHub</a>
+                    <a href="#" class="social-link"><span>📺</span> YouTube</a>
+                </div>
+            </section>
+
+            <footer class="footer">
+                © 2026 Demon · Built with ❤️ and ☕ · No sugarcoating, just code.
+            </footer>
+
+        </main>
     </div>
 
     <script>
         // ============================================================
-        // 🔧 ====== الإعدادات (عدّل من هنا) ======
+        // 🔧 ====== الإعدادات ======
         // ============================================================
 
-        // الحالة: 'online' أو 'idle' أو 'dnd' أو 'offline'
-        const USER_STATUS = 'online';
+        const USER_STATUS = 'online'; // online / idle / dnd / offline
 
-        // المهارات (عدّل أو أضف)
         const skillsData = [
             { name: 'Node.js & Discord.js', percent: 95, icon: '🟢' },
             { name: 'Minecraft Configuration', percent: 100, icon: '⛏️' },
@@ -509,7 +773,6 @@
             { name: 'Lua (FiveM / Roblox)', percent: 65, icon: '🌙' }
         ];
 
-        // المشاريع (عدّل أو أضف)
         const projectsData = [
             { icon: '⚙️', title: 'Minecraft Servers', desc: 'High-performance setups' },
             { icon: '🤖', title: 'Discord Bots', desc: 'Advanced Discord.js bots' },
@@ -534,35 +797,33 @@
             dot.style.top = e.clientY + 'px';
         });
 
-        document.querySelectorAll('a, .skill-card, .project-card, .status-box').forEach(el => {
+        document.querySelectorAll('a, .skill-card, .project-card, .sidebar .nav a, .social-link').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.width = '32px';
                 cursor.style.height = '32px';
-                cursor.style.borderColor = '#c9a87c';
+                cursor.style.borderColor = '#d4c9b8';
             });
             el.addEventListener('mouseleave', () => {
-                cursor.style.width = '18px';
-                cursor.style.height = '18px';
-                cursor.style.borderColor = '#d4c9b8';
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursor.style.borderColor = '#c9a87c';
             });
         });
 
         // ----- الحالة -----
-        const statusDot = document.getElementById('statusDot');
-        const statusLabel = document.getElementById('statusLabel');
-        const workBadge = document.getElementById('workBadge');
+        const sideDot = document.getElementById('sideDot');
+        const sideLabel = document.getElementById('sideLabel');
 
         const statusMap = {
-            online: { class: 'online', label: '🟢 Online', badge: '⚡ Working' },
-            idle: { class: 'idle', label: '🟡 Busy Now', badge: '🟡 Busy' },
-            dnd: { class: 'dnd', label: '🔴 Do Not Disturb', badge: '⛔ DND' },
-            offline: { class: 'offline', label: '⚫ Offline', badge: '💤 Offline' }
+            online: { class: 'online', label: '🟢 Online' },
+            idle: { class: 'idle', label: '🟡 Busy Now' },
+            dnd: { class: 'dnd', label: '🔴 DND' },
+            offline: { class: 'offline', label: '⚫ Offline' }
         };
 
         const currentStatus = statusMap[USER_STATUS] || statusMap.online;
-        statusDot.className = 'status-dot ' + currentStatus.class;
-        statusLabel.innerHTML = `<strong>Demon</strong> · ${currentStatus.label}`;
-        workBadge.textContent = currentStatus.badge;
+        sideDot.className = 'dot ' + currentStatus.class;
+        sideLabel.innerHTML = `<strong>Demon</strong> · ${currentStatus.label}`;
 
         // ----- المهارات -----
         const grid = document.getElementById('skillsGrid');
@@ -596,6 +857,25 @@
                 <div class="desc">${p.desc}</div>
             `;
             pGrid.appendChild(card);
+        });
+
+        // ----- تفعيل التنقل -----
+        document.querySelectorAll('.sidebar .nav a, .header-nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                document.querySelectorAll('.sidebar .nav a, .header-nav a').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // ----- سكرول سلس -----
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
         });
     </script>
 
