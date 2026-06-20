@@ -590,6 +590,7 @@
             display: flex;
             gap: 14px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .social-link {
@@ -597,19 +598,21 @@
             backdrop-filter: blur(10px);
             border: 1px solid var(--border);
             border-radius: 40px;
-            padding: 10px 24px;
+            padding: 12px 28px;
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9em;
+            font-size: 0.95em;
             transition: 0.25s;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             box-shadow: 0 4px 20px var(--shadow);
+            min-width: 160px;
+            justify-content: center;
         }
 
         .social-link i {
-            font-size: 1.1em;
+            font-size: 1.3em;
             color: var(--text-muted);
         }
 
@@ -617,7 +620,18 @@
             background: var(--border-hover);
             border-color: var(--border-hover);
             color: var(--text);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
+        .social-link .username {
+            font-weight: 400;
+            color: var(--text-secondary);
+            font-size: 0.85em;
+        }
+
+        .social-link:hover .username {
+            color: var(--text);
         }
 
         /* ===== Footer ===== */
@@ -708,6 +722,12 @@
             }
             .social-links {
                 justify-content: center;
+                flex-direction: column;
+                align-items: center;
+            }
+            .social-link {
+                min-width: 200px;
+                padding: 10px 20px;
             }
             
             /* إخفاء الكورسر نهائياً في التابلت والموبايل */
@@ -732,6 +752,10 @@
             .header .nav a {
                 font-size: 1.1em;
                 padding: 4px 8px;
+            }
+            .social-link {
+                min-width: 100%;
+                padding: 12px 20px;
             }
         }
     </style>
@@ -791,7 +815,6 @@
 
             <div class="name">Demon</div>
             <div class="title">Full Stack · <span>Minecraft Expert</span></div>
-            <!-- تم التعديل هنا: إضافة 4+ Years Experience -->
             <div class="location"><i class="fas fa-map-pin" style="margin-right:6px;"></i>Algeria · <i class="fas fa-code" style="margin:0 4px;"></i> 4+ Years Experience</div>
 
             <div class="status-box">
@@ -844,17 +867,26 @@
                 <span class="tag">تواصل</span>
             </div>
             <div class="social-links">
-                <a href="#" class="social-link"><i class="fab fa-twitter"></i> Twitter</a>
-                <a href="#" class="social-link"><i class="fab fa-discord"></i> Discord</a>
-                <a href="#" class="social-link"><i class="fab fa-github"></i> GitHub</a>
-                <a href="#" class="social-link"><i class="fab fa-youtube"></i> YouTube</a>
-                <a href="#" class="social-link"><i class="fab fa-tiktok"></i> TikTok</a>
+                <!-- Instagram -->
+                <a href="https://instagram.com/0__0z0" target="_blank" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                    <span class="username">@0__0z0</span>
+                </a>
+                <!-- Discord -->
+                <a href="https://discord.com/users/2yfu" target="_blank" class="social-link">
+                    <i class="fab fa-discord"></i>
+                    <span class="username">@2yfu</span>
+                </a>
+                <!-- GitHub -->
+                <a href="https://github.com/updemonb" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                    <span class="username">@updemonb</span>
+                </a>
             </div>
         </section>
 
         <footer class="footer">
-            <!-- تم التعديل هنا: إضافة 4+ Years وبعض اللمسات -->
-            © 2026 Demon · <i class="fas fa-code"></i> 4+ Years of Experience · <i class="fas fa-heart" style="color: #c9a87c;"></i> IDK ._.
+            © 2026 Demon · <i class="fas fa-code"></i> 4+ Years of Experience · <i class="fas fa-heart" style="color: #c9a87c;"></i>
         </footer>
     </div>
 
