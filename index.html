@@ -93,7 +93,7 @@
             opacity: 0.1;
         }
 
-        /* ===== كورسر سريع ===== */
+        /* ===== كورسر سريع (تم تسريعه) ===== */
         .cursor {
             width: 20px;
             height: 20px;
@@ -102,8 +102,9 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: 0.03s linear;
+            /* تم إزالة transition */
             mix-blend-mode: difference;
+            will-change: transform, left, top;
         }
 
         [data-theme="light"] .cursor {
@@ -118,12 +119,23 @@
             position: fixed;
             pointer-events: none;
             z-index: 10000;
-            transition: 0.02s linear;
+            /* تم إزالة transition */
             mix-blend-mode: difference;
+            will-change: transform, left, top;
         }
 
         [data-theme="light"] .cursor-dot {
             background: #8a7a6a;
+        }
+
+        /* إخفاء الكورسر في أجهزة اللمس */
+        @media (hover: none) and (pointer: coarse) {
+            .cursor, .cursor-dot {
+                display: none !important;
+            }
+            body {
+                cursor: auto !important;
+            }
         }
 
         /* ===== الهيدر ===== */
@@ -697,6 +709,14 @@
             .social-links {
                 justify-content: center;
             }
+            
+            /* إخفاء الكورسر نهائياً في التابلت والموبايل */
+            .cursor, .cursor-dot {
+                display: none !important;
+            }
+            body {
+                cursor: auto !important;
+            }
         }
 
         @media (max-width: 450px) {
@@ -771,7 +791,8 @@
 
             <div class="name">Demon</div>
             <div class="title">Full Stack · <span>Minecraft Expert</span></div>
-            <div class="location"><i class="fas fa-map-pin" style="margin-right:6px;"></i>Algeria</div>
+            <!-- تم التعديل هنا: إضافة 4+ Years Experience -->
+            <div class="location"><i class="fas fa-map-pin" style="margin-right:6px;"></i>Algeria · <i class="fas fa-code" style="margin:0 4px;"></i> 4+ Years Experience</div>
 
             <div class="status-box">
                 <span class="status-dot online" id="statusDot"></span>
@@ -786,7 +807,7 @@
                 <span class="tag">من أنا</span>
             </div>
             <div class="about-text">
-                I'm <strong>Demon</strong>, a passionate developer from Algeria with deep expertise in
+                I'm <strong>Demon</strong>, a passionate developer from Algeria with <strong>4+ years of experience</strong> in the coding world. I have deep expertise in
                 <span class="highlight">Minecraft server architecture</span>,
                 <span class="highlight">full-stack web development</span>, and
                 <span class="highlight">Discord bot engineering</span>.
@@ -832,7 +853,8 @@
         </section>
 
         <footer class="footer">
-            © 2026 Demon · IDK ._.
+            <!-- تم التعديل هنا: إضافة 4+ Years وبعض اللمسات -->
+            © 2026 Demon · <i class="fas fa-code"></i> 4+ Years of Experience · <i class="fas fa-heart" style="color: #c9a87c;"></i> IDK ._.
         </footer>
     </div>
 
@@ -869,17 +891,26 @@
         // ====== كود التشغيل ======
         // ============================================================
 
-        // ----- كورسر سريع -----
+        // ----- كورسر سريع (تم التسريع باستخدام requestAnimationFrame) -----
         const cursor = document.getElementById('cursor');
         const dot = document.getElementById('cursorDot');
+        let mouseX = 0, mouseY = 0;
 
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            dot.style.left = e.clientX + 'px';
-            dot.style.top = e.clientY + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
 
+        function updateCursor() {
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+            dot.style.left = mouseX + 'px';
+            dot.style.top = mouseY + 'px';
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // تأثيرات الـ Hover
         document.querySelectorAll('a, button, .skill-card, .project-card, .social-link, .dot-nav').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.width = '32px';
