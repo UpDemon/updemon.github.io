@@ -19,10 +19,6 @@
             font-family: 'Outfit', sans-serif;
             cursor: none;
             overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
         }
 
@@ -31,8 +27,8 @@
             position: fixed;
             inset: 0;
             background:
-                radial-gradient(circle at 30% 20%, rgba(212, 201, 184, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(212, 201, 184, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 30% 20%, rgba(212, 201, 184, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(212, 201, 184, 0.03) 0%, transparent 50%),
                 #0d0b0a;
             z-index: -2;
         }
@@ -72,302 +68,194 @@
             mix-blend-mode: difference;
         }
 
-        /* ===== كارد ===== */
-        .profile-card {
-            background: rgba(30, 27, 24, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 201, 184, 0.08);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 750px;
-            width: 100%;
-            box-shadow:
-                0 30px 80px rgba(0, 0, 0, 0.6),
-                inset 0 1px 0 rgba(212, 201, 184, 0.04);
-            transition: 0.3s;
-        }
-
-        .profile-card:hover {
-            border-color: rgba(212, 201, 184, 0.12);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 0 40px;
         }
 
         /* ===== الهيدر ===== */
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 24px;
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
             border-bottom: 1px solid rgba(212, 201, 184, 0.06);
-            padding-bottom: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
 
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
+        .hero .avatar {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 2px solid rgba(212, 201, 184, 0.12);
+            border: 2px solid rgba(212, 201, 184, 0.1);
             object-fit: cover;
-            flex-shrink: 0;
+            margin-bottom: 20px;
             transition: 0.3s;
-            box-shadow: 0 0 40px rgba(212, 201, 184, 0.03);
         }
 
-        .profile-avatar:hover {
+        .hero .avatar:hover {
             border-color: rgba(212, 201, 184, 0.25);
             transform: scale(1.02);
-            box-shadow: 0 0 60px rgba(212, 201, 184, 0.06);
         }
 
-        .profile-info {
-            flex: 1;
-        }
-
-        .profile-info .name-line {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .profile-info .name {
-            font-size: 2.2em;
-            font-weight: 800;
-            color: #d4c9b8;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #d4c9b8, #b8aa94);
+        .hero .name {
+            font-size: 4em;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #d4c9b8, #b8aa94, #d4c9b8);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
         }
 
-        .profile-info .badge {
-            font-size: 0.45em;
-            background: rgba(212, 201, 184, 0.06);
-            border: 1px solid rgba(212, 201, 184, 0.06);
-            padding: 2px 14px;
-            border-radius: 30px;
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .hero .title {
+            font-size: 1.2em;
             color: #b8aa94;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            -webkit-text-fill-color: #b8aa94;
-        }
-
-        .profile-info .status-line {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-weight: 300;
+            letter-spacing: 3px;
             margin-top: 4px;
         }
 
-        .profile-info .status-dot {
+        .hero .title span {
+            color: #c9a87c;
+        }
+
+        .hero .location {
+            color: #5a4f42;
+            font-size: 0.9em;
+            margin-top: 4px;
+        }
+
+        /* ===== الحالة ===== */
+        .status-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(212, 201, 184, 0.03);
+            border: 1px solid rgba(212, 201, 184, 0.06);
+            border-radius: 40px;
+            padding: 8px 24px 8px 20px;
+            margin-top: 18px;
+        }
+
+        .status-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: #d4c9b8;
             display: inline-block;
-            flex-shrink: 0;
-            box-shadow: 0 0 20px rgba(212, 201, 184, 0.1);
-            transition: 0.3s;
         }
 
-        .profile-info .status-dot.online {
+        .status-dot.online {
             background: #43b581;
             box-shadow: 0 0 25px rgba(67, 181, 129, 0.2);
         }
-        .profile-info .status-dot.idle {
+        .status-dot.idle {
             background: #faa61a;
             box-shadow: 0 0 25px rgba(250, 166, 26, 0.2);
         }
-        .profile-info .status-dot.dnd {
+        .status-dot.dnd {
             background: #f04747;
             box-shadow: 0 0 25px rgba(240, 71, 71, 0.2);
         }
-        .profile-info .status-dot.offline {
+        .status-dot.offline {
             background: #747f8d;
-            box-shadow: none;
         }
 
-        .profile-info .status-text {
-            color: #b8aa94;
-            font-size: 0.95em;
-            font-weight: 300;
-        }
-
-        .profile-info .status-text strong {
-            color: #d4c9b8;
-            font-weight: 500;
-        }
-
-        .profile-info .subtitle {
-            color: #8a7e6e;
+        .status-label {
             font-size: 0.9em;
-            font-weight: 300;
-            margin-top: 2px;
-        }
-
-        .profile-info .subtitle span {
             color: #b8aa94;
         }
 
-        /* ===== BIO ===== */
-        .profile-bio {
-            padding: 12px 0 8px;
-            border-bottom: 1px solid rgba(212, 201, 184, 0.06);
-            margin-bottom: 16px;
-        }
-
-        .profile-bio .bio-text {
-            color: #b8aa94;
-            font-size: 0.95em;
-            font-weight: 300;
-            line-height: 1.7;
-        }
-
-        .profile-bio .bio-text .highlight {
+        .status-label strong {
             color: #d4c9b8;
             font-weight: 500;
         }
 
-        .profile-bio .bio-text .highlight-gold {
-            color: #c9a87c;
-            font-weight: 500;
-        }
-
-        /* ===== VIEW FULL BIO ===== */
-        .view-bio {
-            display: inline-block;
-            color: #c9a87c;
-            font-size: 0.85em;
-            font-weight: 500;
-            text-decoration: none;
-            padding: 4px 0;
-            margin-bottom: 14px;
-            transition: 0.3s;
-            border-bottom: 1px solid transparent;
-        }
-
-        .view-bio:hover {
-            border-bottom-color: #c9a87c;
-            color: #d4c9b8;
-        }
-
-        /* ===== GAME COLLECTION ===== */
-        .collection-title {
-            font-size: 0.7em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #8a7e6e;
-            font-weight: 600;
-            margin: 16px 0 10px;
-        }
-
-        .collection-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .collection-item {
+        .status-badge {
+            font-size: 0.75em;
+            padding: 4px 16px;
+            border-radius: 30px;
+            background: rgba(212, 201, 184, 0.04);
+            border: 1px solid rgba(212, 201, 184, 0.06);
             color: #b8aa94;
-            font-size: 0.9em;
-            font-weight: 400;
-            padding: 8px 14px;
-            border-radius: 10px;
-            transition: 0.2s;
-            cursor: default;
+        }
+
+        /* ===== الأقسام ===== */
+        .section-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin: 50px 0 20px;
             display: flex;
             align-items: center;
             gap: 12px;
-            border: 1px solid transparent;
         }
 
-        .collection-item:hover {
-            background: rgba(212, 201, 184, 0.03);
-            border-color: rgba(212, 201, 184, 0.04);
-            color: #d4c9b8;
-        }
-
-        .collection-item .icon {
-            font-size: 1em;
-            width: 24px;
-            text-align: center;
-            color: #c9a87c;
-        }
-
-        .collection-item .text {
-            flex: 1;
-        }
-
-        .collection-item .shortcut {
-            color: #5a4f42;
-            font-size: 0.7em;
+        .section-title .tag {
+            font-size: 0.45em;
             font-weight: 300;
+            color: #5a4f42;
             background: rgba(212, 201, 184, 0.03);
-            padding: 2px 10px;
-            border-radius: 6px;
+            padding: 2px 14px;
+            border-radius: 30px;
         }
 
-        /* ===== SKILLS ===== */
-        .skills-section {
-            margin-top: 20px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(212, 201, 184, 0.06);
+        .section-sub {
+            color: #5a4f42;
+            font-weight: 300;
+            margin-bottom: 20px;
         }
 
-        .skills-section .section-label {
-            font-size: 0.7em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #8a7e6e;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
+        /* ===== المهارات ===== */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 10px;
         }
 
-        .skill-item {
+        .skill-card {
             background: rgba(212, 201, 184, 0.02);
             border: 1px solid rgba(212, 201, 184, 0.04);
-            border-radius: 10px;
-            padding: 10px 14px;
+            border-radius: 12px;
+            padding: 14px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: 0.25s;
         }
 
-        .skill-item:hover {
+        .skill-card:hover {
             background: rgba(212, 201, 184, 0.04);
-            border-color: rgba(212, 201, 184, 0.06);
-            transform: translateY(-1px);
+            border-color: rgba(212, 201, 184, 0.08);
+            transform: translateY(-2px);
         }
 
-        .skill-item .left {
+        .skill-card .left {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .skill-item .left .icon {
-            font-size: 1.1em;
+        .skill-card .left .icon {
+            font-size: 1.2em;
         }
 
-        .skill-item .left .name {
-            font-size: 0.85em;
+        .skill-card .left .name {
+            font-size: 0.9em;
             color: #b8aa94;
         }
 
-        .skill-item .right {
+        .skill-card .right {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .skill-item .bar {
+        .skill-card .bar {
             width: 60px;
             height: 3px;
             background: rgba(212, 201, 184, 0.06);
@@ -375,104 +263,95 @@
             overflow: hidden;
         }
 
-        .skill-item .bar .fill {
+        .skill-card .bar .fill {
             height: 100%;
             background: linear-gradient(90deg, #c9a87c, #d4c9b8);
             border-radius: 3px;
-            transition: 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 1.2s;
             width: 0%;
         }
 
-        .skill-item .percent {
+        .skill-card .percent {
             font-size: 0.7em;
             color: #5a4f42;
             min-width: 30px;
             text-align: right;
-            font-weight: 300;
         }
 
-        /* ===== PROJECTS ===== */
-        .projects-section {
-            margin-top: 20px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(212, 201, 184, 0.06);
-        }
-
-        .projects-section .section-label {
-            font-size: 0.7em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #8a7e6e;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
+        /* ===== المشاريع ===== */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
         }
 
-        .project-item {
+        .project-card {
             background: rgba(212, 201, 184, 0.02);
             border: 1px solid rgba(212, 201, 184, 0.04);
-            border-radius: 12px;
-            padding: 14px 12px;
+            border-radius: 14px;
+            padding: 24px 16px;
             text-align: center;
             transition: 0.25s;
         }
 
-        .project-item:hover {
+        .project-card:hover {
             background: rgba(212, 201, 184, 0.04);
-            border-color: rgba(212, 201, 184, 0.06);
-            transform: translateY(-2px);
+            border-color: rgba(212, 201, 184, 0.08);
+            transform: translateY(-4px);
         }
 
-        .project-item .icon {
-            font-size: 2em;
-            margin-bottom: 4px;
+        .project-card .icon {
+            font-size: 2.4em;
+            margin-bottom: 6px;
         }
-        .project-item .title {
-            font-size: 0.85em;
-            font-weight: 500;
+        .project-card .title {
+            font-size: 0.95em;
+            font-weight: 600;
             color: #d4c9b8;
         }
-        .project-item .desc {
-            font-size: 0.7em;
+        .project-card .desc {
+            font-size: 0.75em;
             color: #5a4f42;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
-        /* ===== SOCIAL ===== */
-        .social-section {
-            margin-top: 20px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(212, 201, 184, 0.06);
+        /* ===== عني ===== */
+        .about-text {
+            background: rgba(212, 201, 184, 0.02);
+            border: 1px solid rgba(212, 201, 184, 0.04);
+            border-radius: 16px;
+            padding: 28px 32px;
+            max-width: 800px;
+            color: #b8aa94;
+            font-weight: 300;
+            line-height: 1.8;
         }
 
-        .social-section .section-label {
-            font-size: 0.7em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #8a7e6e;
-            font-weight: 600;
-            margin-bottom: 10px;
+        .about-text strong {
+            color: #d4c9b8;
+            font-weight: 500;
         }
 
+        .about-text .highlight {
+            color: #c9a87c;
+        }
+
+        /* ===== السوشال ===== */
         .social-links {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
+            margin-top: 10px;
         }
 
         .social-link {
             background: rgba(212, 201, 184, 0.02);
             border: 1px solid rgba(212, 201, 184, 0.04);
-            border-radius: 30px;
-            padding: 8px 20px;
+            border-radius: 40px;
+            padding: 10px 24px;
             color: #b8aa94;
             text-decoration: none;
-            font-size: 0.85em;
+            font-size: 0.9em;
             transition: 0.25s;
             display: flex;
             align-items: center;
@@ -483,61 +362,31 @@
             background: rgba(212, 201, 184, 0.04);
             border-color: rgba(212, 201, 184, 0.08);
             color: #d4c9b8;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
 
         .social-link .sicon {
             font-size: 1.1em;
         }
 
-        /* ===== FOOTER ===== */
+        /* ===== الفوتر ===== */
         footer {
             text-align: center;
-            padding: 24px 20px 4px;
+            padding: 40px 20px 10px;
             color: #3a332c;
-            font-size: 0.7em;
+            font-size: 0.75em;
             border-top: 1px solid rgba(212, 201, 184, 0.03);
-            margin-top: 20px;
-            letter-spacing: 0.5px;
+            margin-top: 50px;
         }
 
-        footer .heart {
-            color: #c9a87c;
-        }
-
-        /* ===== RESPONSIVE ===== */
+        /* ===== استجابة ===== */
         @media (max-width: 700px) {
-            .profile-card {
-                padding: 24px;
+            .hero .name {
+                font-size: 2.8em;
             }
-            .profile-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 14px;
-            }
-            .profile-avatar {
-                width: 80px;
-                height: 80px;
-            }
-            .profile-info .name {
-                font-size: 1.8em;
-                justify-content: center;
-            }
-            .profile-info .status-line {
-                justify-content: center;
-            }
-            .profile-info .subtitle {
-                text-align: center;
-            }
-            .profile-bio .bio-text {
-                text-align: center;
-            }
-            .view-bio {
-                display: block;
-                text-align: center;
-            }
-            .collection-item {
-                justify-content: center;
+            .hero .avatar {
+                width: 90px;
+                height: 90px;
             }
             .skills-grid {
                 grid-template-columns: 1fr;
@@ -545,8 +394,16 @@
             .projects-grid {
                 grid-template-columns: 1fr 1fr;
             }
-            .social-links {
+            .section-title {
+                font-size: 1.4em;
+            }
+            .about-text {
+                padding: 20px;
+            }
+            .status-box {
+                flex-wrap: wrap;
                 justify-content: center;
+                padding: 8px 16px;
             }
         }
 
@@ -554,11 +411,8 @@
             .projects-grid {
                 grid-template-columns: 1fr;
             }
-            .profile-card {
-                padding: 16px;
-            }
-            .profile-info .name {
-                font-size: 1.4em;
+            .social-links {
+                justify-content: center;
             }
         }
     </style>
@@ -570,90 +424,66 @@
     <div class="cursor" id="cursor"></div>
     <div class="cursor-dot" id="cursorDot"></div>
 
-    <div class="profile-card">
+    <div class="container">
 
-        <!-- ===== HEADER ===== -->
-        <div class="profile-header">
-            <img class="profile-avatar"
+        <!-- ===== الهيدر ===== -->
+        <div class="hero">
+            <img class="avatar"
                  src="https://cdn.discordapp.com/attachments/1491039082380394629/1517838732043227286/download.jpg?ex=6a37bcf9&is=6a366b79&hm=9fea516e57d5673cfaffedf9cea563f7498b1bb690075d5802db11f2ca8a422b&"
                  alt="Demon">
 
-            <div class="profile-info">
-                <div class="name-line">
-                    <span class="name">Demon,</span>
-                    <span class="badge">2yfu 🐱 #1</span>
-                </div>
-                <div class="status-line">
-                    <span class="status-dot online" id="statusDot"></span>
-                    <span class="status-text" id="statusLabel"><strong>Demon</strong> · 🟢 Online</span>
-                </div>
-                <div class="subtitle">
-                    <span>~ Minecraft Configurator</span> · <span>Server Setup Expert</span> · <span>Portfolio "SOON"</span>
-                </div>
+            <div class="name">Demon</div>
+            <div class="title">Full Stack · <span>Minecraft Expert</span></div>
+            <div class="location">🇩🇿 Algeria · 15 Nov 2011</div>
+
+            <!-- الحالة -->
+            <div class="status-box">
+                <span class="status-dot online" id="statusDot"></span>
+                <span class="status-label" id="statusLabel"><strong>Demon</strong> · 🟢 Online</span>
+                <span class="status-badge" id="workBadge">⚡ Working</span>
             </div>
         </div>
 
-        <!-- ===== BIO ===== -->
-        <div class="profile-bio">
-            <div class="bio-text">
-                <span class="highlight">Demon,</span> 2yfu 🐱 #1 · <span class="highlight">Minecraft Configurator</span> &amp; <span class="highlight">Server Setup Expert</span>.<br>
-                Portfolio <span class="highlight-gold">"SOON"</span> · Building clean, high-performance systems.
-            </div>
+        <!-- ===== عني ===== -->
+        <div class="section-title">👤 About Me</div>
+        <div class="about-text">
+            I'm <strong>Demon</strong>, a passionate developer from Algeria with deep expertise in
+            <span class="highlight">Minecraft server architecture</span>,
+            <span class="highlight">full-stack web development</span>, and
+            <span class="highlight">Discord bot engineering</span>.
+            <br><br>
+            I believe in <strong>clean code</strong>, <strong>real solutions</strong>, and <strong>no fluff</strong>.
+            Currently building next-gen Minecraft plugins & scalable web systems.
         </div>
 
-        <!-- ===== VIEW FULL BIO ===== -->
-        <a href="#" class="view-bio">View Full Bio →</a>
-
-        <!-- ===== GAME COLLECTION ===== -->
-        <div class="collection-title">🎮 Game Collection</div>
-        <div class="collection-list">
-            <div class="collection-item">
-                <span class="icon">✎</span>
-                <span class="text">Edit Profile</span>
-                <span class="shortcut">⌘E</span>
-            </div>
-            <div class="collection-item">
-                <span class="icon">🌙</span>
-                <span class="text">Do Not Disturb</span>
-                <span class="shortcut">⌘D</span>
-            </div>
-            <div class="collection-item">
-                <span class="icon">⇄</span>
-                <span class="text">Switch Account</span>
-                <span class="shortcut">⌘S</span>
-            </div>
-            <div class="collection-item">
-                <span class="icon">⏍</span>
-                <span class="text">Copy User ID</span>
-                <span class="shortcut">⌘C</span>
-            </div>
+        <!-- ===== المهارات ===== -->
+        <div class="section-title">
+            🛠️ Skills
+            <span class="tag">قابلة للتعديل</span>
         </div>
+        <div class="skills-grid" id="skillsGrid"></div>
 
-        <!-- ===== SKILLS ===== -->
-        <div class="skills-section">
-            <div class="section-label">🛠️ Skills</div>
-            <div class="skills-grid" id="skillsGrid"></div>
+        <!-- ===== المشاريع ===== -->
+        <div class="section-title">
+            🚀 Projects
+            <span class="tag">أعمالي</span>
         </div>
+        <div class="projects-grid" id="projectsGrid"></div>
 
-        <!-- ===== PROJECTS ===== -->
-        <div class="projects-section">
-            <div class="section-label">🚀 Projects</div>
-            <div class="projects-grid" id="projectsGrid"></div>
+        <!-- ===== السوشال ===== -->
+        <div class="section-title">
+            🌐 Connect
+            <span class="tag">تواصل</span>
         </div>
-
-        <!-- ===== SOCIAL ===== -->
-        <div class="social-section">
-            <div class="section-label">🌐 Connect</div>
-            <div class="social-links">
-                <a href="#" class="social-link"><span class="sicon">🐦</span> Twitter</a>
-                <a href="#" class="social-link"><span class="sicon">💬</span> Discord</a>
-                <a href="#" class="social-link"><span class="sicon">🐙</span> GitHub</a>
-                <a href="#" class="social-link"><span class="sicon">📺</span> YouTube</a>
-            </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><span class="sicon">🐦</span> Twitter</a>
+            <a href="#" class="social-link"><span class="sicon">💬</span> Discord</a>
+            <a href="#" class="social-link"><span class="sicon">🐙</span> GitHub</a>
+            <a href="#" class="social-link"><span class="sicon">📺</span> YouTube</a>
         </div>
 
         <footer>
-            © 2026 Demon · Built with <span class="heart">❤</span> · No sugarcoating, just code.
+            © 2026 Demon · Built with ❤️ and ☕ · No sugarcoating, just code.
         </footer>
     </div>
 
@@ -681,12 +511,12 @@
 
         // المشاريع (عدّل أو أضف)
         const projectsData = [
-            { icon: '⚙️', title: 'Minecraft Servers', desc: 'High-performance' },
-            { icon: '🤖', title: 'Discord Bots', desc: 'Advanced bots' },
-            { icon: '🌐', title: 'Full Stack Web', desc: 'Apps & APIs' },
-            { icon: '🎮', title: 'Game Dev', desc: 'Interactive' },
-            { icon: '🔧', title: 'Custom Plugins', desc: 'Spigot/Paper' },
-            { icon: '📊', title: 'Economy Systems', desc: 'Vault & Coins' }
+            { icon: '⚙️', title: 'Minecraft Servers', desc: 'High-performance setups' },
+            { icon: '🤖', title: 'Discord Bots', desc: 'Advanced Discord.js bots' },
+            { icon: '🌐', title: 'Full Stack Web', desc: 'Responsive apps & APIs' },
+            { icon: '🎮', title: 'Game Dev', desc: 'Interactive experiences' },
+            { icon: '🔧', title: 'Custom Plugins', desc: 'Spigot / Paper plugins' },
+            { icon: '📊', title: 'Economy Systems', desc: 'Vault & CoinsEngine' }
         ];
 
         // ============================================================
@@ -704,8 +534,7 @@
             dot.style.top = e.clientY + 'px';
         });
 
-        // تكبير الكورسر عند المرور
-        document.querySelectorAll('a, button, .skill-item, .project-item, .collection-item, .view-bio').forEach(el => {
+        document.querySelectorAll('a, .skill-card, .project-card, .status-box').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.width = '32px';
                 cursor.style.height = '32px';
@@ -721,24 +550,26 @@
         // ----- الحالة -----
         const statusDot = document.getElementById('statusDot');
         const statusLabel = document.getElementById('statusLabel');
+        const workBadge = document.getElementById('workBadge');
 
         const statusMap = {
-            online: { class: 'online', label: '🟢 Online' },
-            idle: { class: 'idle', label: '🟡 Busy Now' },
-            dnd: { class: 'dnd', label: '🔴 Do Not Disturb' },
-            offline: { class: 'offline', label: '⚫ Offline' }
+            online: { class: 'online', label: '🟢 Online', badge: '⚡ Working' },
+            idle: { class: 'idle', label: '🟡 Busy Now', badge: '🟡 Busy' },
+            dnd: { class: 'dnd', label: '🔴 Do Not Disturb', badge: '⛔ DND' },
+            offline: { class: 'offline', label: '⚫ Offline', badge: '💤 Offline' }
         };
 
         const currentStatus = statusMap[USER_STATUS] || statusMap.online;
         statusDot.className = 'status-dot ' + currentStatus.class;
         statusLabel.innerHTML = `<strong>Demon</strong> · ${currentStatus.label}`;
+        workBadge.textContent = currentStatus.badge;
 
         // ----- المهارات -----
         const grid = document.getElementById('skillsGrid');
         skillsData.forEach(s => {
-            const item = document.createElement('div');
-            item.className = 'skill-item';
-            item.innerHTML = `
+            const card = document.createElement('div');
+            card.className = 'skill-card';
+            card.innerHTML = `
                 <div class="left">
                     <span class="icon">${s.icon}</span>
                     <span class="name">${s.name}</span>
@@ -748,23 +579,23 @@
                     <span class="percent">${s.percent}%</span>
                 </div>
             `;
-            grid.appendChild(item);
+            grid.appendChild(card);
             setTimeout(() => {
-                item.querySelector('.fill').style.width = s.percent + '%';
+                card.querySelector('.fill').style.width = s.percent + '%';
             }, 200);
         });
 
         // ----- المشاريع -----
         const pGrid = document.getElementById('projectsGrid');
         projectsData.forEach(p => {
-            const item = document.createElement('div');
-            item.className = 'project-item';
-            item.innerHTML = `
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `
                 <div class="icon">${p.icon}</div>
                 <div class="title">${p.title}</div>
                 <div class="desc">${p.desc}</div>
             `;
-            pGrid.appendChild(item);
+            pGrid.appendChild(card);
         });
     </script>
 
