@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demon | Portfolio</title>
+    
+    <!-- ===== FAVICON (صورة دائرية جنب التايتل) ===== -->
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1491039082380394629/1517838732043227286/download.jpg?ex=6a37bcf9&is=6a366b79&hm=9fea516e57d5673cfaffedf9cea563f7498b1bb690075d5802db11f2ca8a422b&" type="image/jpeg">
+    <link rel="apple-touch-icon" href="https://cdn.discordapp.com/attachments/1491039082380394629/1517838732043227286/download.jpg?ex=6a37bcf9&is=6a366b79&hm=9fea516e57d5673cfaffedf9cea563f7498b1bb690075d5802db11f2ca8a422b&">
+    
     <!-- Font Awesome 6 (free) for crisp icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ===== باقي الكود نفسه ===== */
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
         * {
@@ -93,7 +99,7 @@
             opacity: 0.1;
         }
 
-        /* ===== كورسر سريع (تم تسريعه) ===== */
+        /* ===== كورسر سريع ===== */
         .cursor {
             width: 20px;
             height: 20px;
@@ -102,7 +108,6 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            /* تم إزالة transition */
             mix-blend-mode: difference;
             will-change: transform, left, top;
         }
@@ -119,7 +124,6 @@
             position: fixed;
             pointer-events: none;
             z-index: 10000;
-            /* تم إزالة transition */
             mix-blend-mode: difference;
             will-change: transform, left, top;
         }
@@ -128,7 +132,6 @@
             background: #8a7a6a;
         }
 
-        /* إخفاء الكورسر في أجهزة اللمس */
         @media (hover: none) and (pointer: coarse) {
             .cursor, .cursor-dot {
                 display: none !important;
@@ -210,7 +213,6 @@
             color: #8a7a6a;
         }
 
-        /* ===== زر التبديل ===== */
         .theme-toggle {
             background: var(--border);
             border: 1px solid var(--border-hover);
@@ -235,7 +237,6 @@
             color: var(--text);
         }
 
-        /* ===== المحتوى ===== */
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -391,6 +392,7 @@
             height: 12px;
             border-radius: 50%;
             display: inline-block;
+            object-fit: cover;
         }
 
         .status-dot.online {
@@ -402,8 +404,15 @@
             box-shadow: 0 0 25px rgba(250, 166, 26, 0.2);
         }
         .status-dot.dnd {
-            background: #f04747;
-            box-shadow: 0 0 25px rgba(240, 71, 71, 0.2);
+            background: transparent;
+            box-shadow: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-image: url('https://cdn.discordapp.com/attachments/1491039082380394629/1517838732043227286/download.jpg?ex=6a37bcf9&is=6a366b79&hm=9fea516e57d5673cfaffedf9cea563f7498b1bb690075d5802db11f2ca8a422b&');
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #f04747;
         }
         .status-dot.offline {
             background: #747f8d;
@@ -544,6 +553,95 @@
             color: var(--text-muted);
             min-width: 30px;
             text-align: right;
+        }
+
+        /* ===== Working ===== */
+        .working-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .working-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 18px;
+            transition: 0.25s;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .working-card:hover {
+            background: var(--border-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+        }
+
+        .working-card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .working-card .card-header .icon {
+            font-size: 1.8em;
+        }
+
+        .working-card .card-header .title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .working-card .card-header .badge {
+            font-size: 0.6em;
+            padding: 2px 12px;
+            border-radius: 30px;
+            background: rgba(201, 168, 124, 0.15);
+            color: #c9a87c;
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        [data-theme="light"] .working-card .card-header .badge {
+            background: rgba(138, 122, 106, 0.15);
+            color: #8a7a6a;
+        }
+
+        .working-card .card-body {
+            color: var(--text-secondary);
+            font-size: 0.85em;
+            line-height: 1.6;
+            padding-left: 8px;
+        }
+
+        .working-card .card-body .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 3px 0;
+        }
+
+        .working-card .card-body .item i {
+            font-size: 0.7em;
+            color: #c9a87c;
+            width: 16px;
+        }
+
+        [data-theme="light"] .working-card .card-body .item i {
+            color: #8a7a6a;
+        }
+
+        .working-card .card-body .item .label {
+            color: var(--text-muted);
+            font-size: 0.8em;
+        }
+
+        .working-card .card-body .item .value {
+            color: var(--text-secondary);
+            font-weight: 400;
         }
 
         /* ===== Projects ===== */
@@ -716,6 +814,9 @@
             .projects-grid {
                 grid-template-columns: 1fr 1fr;
             }
+            .working-grid {
+                grid-template-columns: 1fr;
+            }
             .status-box {
                 padding: 6px 16px;
                 font-size: 0.85em;
@@ -730,7 +831,6 @@
                 padding: 10px 20px;
             }
             
-            /* إخفاء الكورسر نهائياً في التابلت والموبايل */
             .cursor, .cursor-dot {
                 display: none !important;
             }
@@ -776,6 +876,7 @@
             <a href="#home" class="active"><i class="fas fa-home"></i><span>Home</span></a>
             <a href="#about"><i class="fas fa-user"></i><span>About</span></a>
             <a href="#skills"><i class="fas fa-code"></i><span>Skills</span></a>
+            <a href="#working"><i class="fas fa-briefcase"></i><span>Working</span></a>
             <a href="#projects"><i class="fas fa-rocket"></i><span>Projects</span></a>
             <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
             <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i><span> Dark</span></button>
@@ -794,6 +895,10 @@
         <div class="line"></div>
         <div class="dot-nav" data-target="skills">
             <span class="tooltip">Skills</span>
+        </div>
+        <div class="line"></div>
+        <div class="dot-nav" data-target="working">
+            <span class="tooltip">Working</span>
         </div>
         <div class="line"></div>
         <div class="dot-nav" data-target="projects">
@@ -818,8 +923,8 @@
             <div class="location"><i class="fas fa-map-pin" style="margin-right:6px;"></i>Algeria · <i class="fas fa-code" style="margin:0 4px;"></i> 4+ Years Experience</div>
 
             <div class="status-box">
-                <span class="status-dot online" id="statusDot"></span>
-                <span class="status-label" id="statusLabel"><strong>Demon</strong> · 🟢 Online</span>
+                <span class="status-dot dnd" id="statusDot"></span>
+                <span class="status-label" id="statusLabel"><strong>Demon</strong> · 🔴 DND</span>
             </div>
         </section>
 
@@ -851,6 +956,15 @@
             <div class="skills-grid" id="skillsGrid"></div>
         </section>
 
+        <!-- ===== WORKING ===== -->
+        <section class="section" id="working">
+            <div class="section-title">
+                <i class="fas fa-briefcase"></i> Working
+                <span class="tag">قيد العمل</span>
+            </div>
+            <div class="working-grid" id="workingGrid"></div>
+        </section>
+
         <!-- ===== PROJECTS ===== -->
         <section class="section" id="projects">
             <div class="section-title">
@@ -867,17 +981,14 @@
                 <span class="tag">تواصل</span>
             </div>
             <div class="social-links">
-                <!-- Instagram -->
                 <a href="https://instagram.com/0__0z0" target="_blank" class="social-link">
                     <i class="fab fa-instagram"></i>
                     <span class="username">@0__0z0</span>
                 </a>
-                <!-- Discord -->
                 <a href="https://discord.com/users/2yfu" target="_blank" class="social-link">
                     <i class="fab fa-discord"></i>
                     <span class="username">@2yfu</span>
                 </a>
-                <!-- GitHub -->
                 <a href="https://github.com/updemonb" target="_blank" class="social-link">
                     <i class="fab fa-github"></i>
                     <span class="username">@updemonb</span>
@@ -895,7 +1006,8 @@
         // 🔧 ====== الإعدادات ======
         // ============================================================
 
-        const USER_STATUS = 'online';
+        // ===== تغيير الحالة إلى DND =====
+        const USER_STATUS = 'dnd';
 
         const skillsData = [
             { name: 'Node.js & Discord.js', percent: 95, icon: 'fa-brands fa-node-js' },
@@ -919,11 +1031,44 @@
             { icon: 'fa-solid fa-coins', title: 'Economy Systems', desc: 'Vault & CoinsEngine' }
         ];
 
+        const workingData = [
+            {
+                icon: '⚙️',
+                title: 'Current Projects',
+                badge: 'DEV',
+                items: [
+                    'Minecraft Network System',
+                    'Discord Bot Dashboard',
+                    'Custom Plugin Suite'
+                ]
+            },
+            {
+                icon: '🛠️',
+                title: 'Developer In',
+                badge: 'DEVELOPER',
+                items: [
+                    'Arcane Network',
+                    'SkyBlock Kingdom',
+                    'PrisonMC'
+                ]
+            },
+            {
+                icon: '👑',
+                title: 'Staff In',
+                badge: 'STAFF',
+                items: [
+                    'MegaCraft (Admin)',
+                    'SkyVerse (Mod)',
+                    'CraftWorld (Helper)'
+                ]
+            }
+        ];
+
         // ============================================================
         // ====== كود التشغيل ======
         // ============================================================
 
-        // ----- كورسر سريع (تم التسريع باستخدام requestAnimationFrame) -----
+        // ----- كورسر سريع -----
         const cursor = document.getElementById('cursor');
         const dot = document.getElementById('cursorDot');
         let mouseX = 0, mouseY = 0;
@@ -942,8 +1087,7 @@
         }
         updateCursor();
 
-        // تأثيرات الـ Hover
-        document.querySelectorAll('a, button, .skill-card, .project-card, .social-link, .dot-nav').forEach(el => {
+        document.querySelectorAll('a, button, .skill-card, .project-card, .social-link, .dot-nav, .working-card').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.width = '32px';
                 cursor.style.height = '32px';
@@ -1005,6 +1149,33 @@
             pGrid.appendChild(card);
         });
 
+        // ----- Working -----
+        const wGrid = document.getElementById('workingGrid');
+        workingData.forEach(w => {
+            const card = document.createElement('div');
+            card.className = 'working-card';
+            let itemsHTML = '';
+            w.items.forEach(item => {
+                itemsHTML += `
+                    <div class="item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span class="value">${item}</span>
+                    </div>
+                `;
+            });
+            card.innerHTML = `
+                <div class="card-header">
+                    <span class="icon">${w.icon}</span>
+                    <span class="title">${w.title}</span>
+                    <span class="badge">${w.badge}</span>
+                </div>
+                <div class="card-body">
+                    ${itemsHTML}
+                </div>
+            `;
+            wGrid.appendChild(card);
+        });
+
         // ===== التبديل بين الوضعين =====
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
@@ -1018,7 +1189,7 @@
 
         // ===== التنقل بالنقاط =====
         const dots = document.querySelectorAll('.dot-nav');
-        const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+        const sections = ['home', 'about', 'skills', 'working', 'projects', 'contact'];
 
         dots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
