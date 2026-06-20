@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demon | Portfolio</title>
     
-    <!-- ===== FAVICON (صورة دائرية جنب التايتل) ===== -->
+    <!-- ===== FAVICON ===== -->
     <link rel="icon" href="https://cdn.discordapp.com/attachments/1491039082380394629/1517838732043227286/download.jpg?ex=6a37bcf9&is=6a366b79&hm=9fea516e57d5673cfaffedf9cea563f7498b1bb690075d5802db11f2ca8a422b&" type="image/jpeg">
     <link rel="apple-touch-icon" href="https://cdn.discordapp.com/attachments/1491039082380394629/1517838732043227286/download.jpg?ex=6a37bcf9&is=6a366b79&hm=9fea516e57d5673cfaffedf9cea563f7498b1bb690075d5802db11f2ca8a422b&">
     
-    <!-- Font Awesome 6 (free) for crisp icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- ===== Font Awesome 6 (CDN موثوق) ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ===== Bootstrap Icons (احتياطي) ===== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <style>
-        /* ===== باقي الكود نفسه ===== */
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
         * {
@@ -44,6 +46,8 @@
             --shadow: rgba(0, 0, 0, 0.6);
             --gradient: linear-gradient(135deg, #d4c9b8, #c9a87c, #d4c9b8);
             --header-bg: rgba(13, 11, 10, 0.85);
+            --glow: rgba(201, 168, 124, 0.15);
+            --card-hover: rgba(201, 168, 124, 0.05);
         }
 
         [data-theme="light"] {
@@ -57,6 +61,8 @@
             --shadow: rgba(0, 0, 0, 0.08);
             --gradient: linear-gradient(135deg, #2a2520, #c9a87c, #2a2520);
             --header-bg: rgba(245, 240, 235, 0.9);
+            --glow: rgba(138, 122, 106, 0.15);
+            --card-hover: rgba(138, 122, 106, 0.05);
         }
 
         body {
@@ -64,7 +70,7 @@
             color: var(--text);
         }
 
-        /* ===== خلفية ===== */
+        /* ===== خلفية متحركة ===== */
         .bg {
             position: fixed;
             inset: 0;
@@ -99,6 +105,52 @@
             opacity: 0.1;
         }
 
+        /* ===== Floating Orbs ===== */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: -1;
+            pointer-events: none;
+            animation: floatOrb 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: #c9a87c;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #d4c9b8;
+            bottom: -150px;
+            right: -150px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: #8a7a6a;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -14s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -30px) scale(1.1); }
+            50% { transform: translate(-20px, 40px) scale(0.9); }
+            75% { transform: translate(30px, -20px) scale(1.05); }
+        }
+
         /* ===== كورسر سريع ===== */
         .cursor {
             width: 20px;
@@ -110,6 +162,7 @@
             z-index: 9999;
             mix-blend-mode: difference;
             will-change: transform, left, top;
+            transition: width 0.2s, height 0.2s, border-color 0.2s;
         }
 
         [data-theme="light"] .cursor {
@@ -132,8 +185,20 @@
             background: #8a7a6a;
         }
 
+        /* ===== Cursor Trail Effect ===== */
+        .trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(201, 168, 124, 0.2);
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.1s ease;
+        }
+
         @media (hover: none) and (pointer: coarse) {
-            .cursor, .cursor-dot {
+            .cursor, .cursor-dot, .trail {
                 display: none !important;
             }
             body {
@@ -192,6 +257,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            position: relative;
         }
 
         .header .nav a i {
@@ -202,15 +268,33 @@
         .header .nav a:hover {
             color: var(--text);
             border-color: var(--border-hover);
+            background: var(--card-hover);
         }
 
         .header .nav a.active {
             color: #c9a87c;
             border-color: rgba(201, 168, 124, 0.15);
+            background: var(--glow);
+        }
+
+        .header .nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: #c9a87c;
+            border-radius: 2px;
         }
 
         [data-theme="light"] .header .nav a.active {
             color: #8a7a6a;
+        }
+
+        [data-theme="light"] .header .nav a.active::after {
+            background: #8a7a6a;
         }
 
         .theme-toggle {
@@ -235,6 +319,7 @@
         .theme-toggle:hover {
             background: var(--border-hover);
             color: var(--text);
+            transform: scale(1.05);
         }
 
         .container {
@@ -271,6 +356,7 @@
         .sidebar .dot-nav:hover {
             border-color: #c9a87c;
             background: rgba(201, 168, 124, 0.1);
+            transform: scale(1.2);
         }
 
         [data-theme="light"] .sidebar .dot-nav:hover {
@@ -281,7 +367,8 @@
         .sidebar .dot-nav.active {
             border-color: #c9a87c;
             background: #c9a87c;
-            box-shadow: 0 0 20px rgba(201, 168, 124, 0.2);
+            box-shadow: 0 0 20px rgba(201, 168, 124, 0.3);
+            transform: scale(1.1);
         }
 
         [data-theme="light"] .sidebar .dot-nav.active {
@@ -310,6 +397,7 @@
 
         .sidebar .dot-nav:hover .tooltip {
             opacity: 1;
+            transform: translateY(-50%) translateX(-5px);
         }
 
         .sidebar .line {
@@ -324,21 +412,24 @@
             padding: 30px 20px 20px;
             border-bottom: 1px solid var(--border);
             margin-bottom: 40px;
+            position: relative;
         }
 
         .hero .avatar {
             width: 130px;
             height: 130px;
             border-radius: 50%;
-            border: 2px solid var(--border-hover);
+            border: 3px solid var(--border-hover);
             object-fit: cover;
             margin-bottom: 16px;
-            transition: 0.3s;
+            transition: 0.4s;
+            box-shadow: 0 0 40px var(--glow);
         }
 
         .hero .avatar:hover {
             border-color: #c9a87c;
-            transform: scale(1.02);
+            transform: scale(1.05) rotate(-5deg);
+            box-shadow: 0 0 60px rgba(201, 168, 124, 0.3);
         }
 
         .hero .name {
@@ -350,6 +441,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shimmer 4s linear infinite;
+            text-shadow: 0 0 40px var(--glow);
         }
 
         .hero .title {
@@ -362,6 +454,7 @@
 
         .hero .title span {
             color: #c9a87c;
+            font-weight: 400;
         }
 
         [data-theme="light"] .hero .title span {
@@ -374,46 +467,66 @@
             margin-top: 4px;
         }
 
+        .hero .location i {
+            color: #c9a87c;
+        }
+
         /* ===== الحالة ===== */
         .status-box {
             display: inline-flex;
             align-items: center;
             gap: 14px;
-            background: var(--border);
-            border: 1px solid var(--border-hover);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 40px;
             padding: 8px 24px 8px 20px;
             margin-top: 16px;
             transition: 0.4s;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .status-box:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
         }
 
         .status-dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             display: inline-block;
-            object-fit: cover;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .status-dot.dnd {
+            background: #f04747;
+            box-shadow: 0 0 25px rgba(240, 71, 71, 0.3);
+        }
+
+        .status-dot.dnd::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
         }
 
         .status-dot.online {
             background: #43b581;
-            box-shadow: 0 0 25px rgba(67, 181, 129, 0.2);
+            box-shadow: 0 0 25px rgba(67, 181, 129, 0.3);
         }
+
         .status-dot.idle {
             background: #faa61a;
-            box-shadow: 0 0 25px rgba(250, 166, 26, 0.2);
+            box-shadow: 0 0 25px rgba(250, 166, 26, 0.3);
         }
-        .status-dot.dnd {
-            background: transparent;
-            box-shadow: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-image: url('https://cdn.discordapp.com/attachments/1491039082380394629/1517838732043227286/download.jpg?ex=6a37bcf9&is=6a366b79&hm=9fea516e57d5673cfaffedf9cea563f7498b1bb690075d5802db11f2ca8a422b&');
-            background-size: cover;
-            background-position: center;
-            border: 2px solid #f04747;
-        }
+
         .status-dot.offline {
             background: #747f8d;
         }
@@ -445,6 +558,15 @@
             color: var(--text);
         }
 
+        .section-title i {
+            color: #c9a87c;
+            font-size: 0.9em;
+        }
+
+        [data-theme="light"] .section-title i {
+            color: #8a7a6a;
+        }
+
         .section-title .tag {
             font-size: 0.4em;
             font-weight: 300;
@@ -467,6 +589,24 @@
             font-size: 1.05em;
             transition: 0.4s;
             box-shadow: 0 10px 40px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient);
+            opacity: 0.5;
+        }
+
+        .about-text:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
         }
 
         .about-text strong {
@@ -499,14 +639,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.25s;
+            transition: 0.3s;
             box-shadow: 0 4px 20px var(--shadow);
+            cursor: default;
         }
 
         .skill-card:hover {
             background: var(--border-hover);
             border-color: var(--border-hover);
-            transform: translateY(-2px);
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 8px 30px var(--shadow);
         }
 
         .skill-card .left {
@@ -516,9 +658,19 @@
         }
 
         .skill-card .left .icon {
-            font-size: 1.2em;
-            width: 24px;
+            font-size: 1.3em;
+            width: 28px;
             text-align: center;
+            color: #c9a87c;
+            transition: 0.3s;
+        }
+
+        .skill-card:hover .left .icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        [data-theme="light"] .skill-card .left .icon {
+            color: #8a7a6a;
         }
 
         .skill-card .left .name {
@@ -553,6 +705,7 @@
             color: var(--text-muted);
             min-width: 30px;
             text-align: right;
+            font-weight: 600;
         }
 
         /* ===== Working ===== */
@@ -568,14 +721,33 @@
             border: 1px solid var(--border);
             border-radius: 14px;
             padding: 20px 18px;
-            transition: 0.25s;
+            transition: 0.3s;
             box-shadow: 0 4px 20px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .working-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .working-card:hover::before {
+            opacity: 1;
         }
 
         .working-card:hover {
             background: var(--border-hover);
             border-color: var(--border-hover);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px var(--shadow);
         }
 
         .working-card .card-header {
@@ -587,6 +759,11 @@
 
         .working-card .card-header .icon {
             font-size: 1.8em;
+            transition: 0.3s;
+        }
+
+        .working-card:hover .card-header .icon {
+            transform: scale(1.1) rotate(-10deg);
         }
 
         .working-card .card-header .title {
@@ -603,6 +780,11 @@
             color: #c9a87c;
             font-weight: 500;
             margin-left: auto;
+            transition: 0.3s;
+        }
+
+        .working-card:hover .card-header .badge {
+            background: rgba(201, 168, 124, 0.25);
         }
 
         [data-theme="light"] .working-card .card-header .badge {
@@ -622,6 +804,11 @@
             align-items: center;
             gap: 8px;
             padding: 3px 0;
+            transition: 0.2s;
+        }
+
+        .working-card .card-body .item:hover {
+            transform: translateX(4px);
         }
 
         .working-card .card-body .item i {
@@ -632,11 +819,6 @@
 
         [data-theme="light"] .working-card .card-body .item i {
             color: #8a7a6a;
-        }
-
-        .working-card .card-body .item .label {
-            color: var(--text-muted);
-            font-size: 0.8em;
         }
 
         .working-card .card-body .item .value {
@@ -658,29 +840,60 @@
             border-radius: 14px;
             padding: 24px 16px;
             text-align: center;
-            transition: 0.25s;
+            transition: 0.3s;
             box-shadow: 0 4px 20px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0;
+            transition: 0.3s;
+            border-radius: 14px;
+        }
+
+        .project-card:hover::after {
+            opacity: 0.05;
         }
 
         .project-card:hover {
             background: var(--border-hover);
             border-color: var(--border-hover);
-            transform: translateY(-4px);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 40px var(--shadow);
         }
 
         .project-card .icon {
-            font-size: 2.4em;
+            font-size: 2.6em;
             margin-bottom: 6px;
+            display: block;
+            transition: 0.3s;
+            position: relative;
+            z-index: 1;
         }
+
+        .project-card:hover .icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
         .project-card .title {
             font-size: 0.95em;
             font-weight: 600;
             color: var(--text);
+            position: relative;
+            z-index: 1;
         }
+
         .project-card .desc {
             font-size: 0.75em;
             color: var(--text-muted);
             margin-top: 4px;
+            position: relative;
+            z-index: 1;
         }
 
         /* ===== Social ===== */
@@ -700,25 +913,49 @@
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.95em;
-            transition: 0.25s;
+            transition: 0.3s;
             display: flex;
             align-items: center;
             gap: 10px;
             box-shadow: 0 4px 20px var(--shadow);
             min-width: 160px;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0;
+            transition: 0.3s;
+            border-radius: 40px;
+        }
+
+        .social-link:hover::before {
+            opacity: 0.08;
         }
 
         .social-link i {
             font-size: 1.3em;
             color: var(--text-muted);
+            transition: 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-link:hover i {
+            color: #c9a87c;
+            transform: scale(1.1);
         }
 
         .social-link:hover {
             background: var(--border-hover);
             border-color: var(--border-hover);
             color: var(--text);
-            transform: translateY(-3px);
+            transform: translateY(-4px) scale(1.02);
             box-shadow: 0 8px 30px var(--shadow);
         }
 
@@ -726,6 +963,8 @@
             font-weight: 400;
             color: var(--text-secondary);
             font-size: 0.85em;
+            position: relative;
+            z-index: 1;
         }
 
         .social-link:hover .username {
@@ -740,6 +979,43 @@
             font-size: 0.75em;
             border-top: 1px solid var(--border);
             margin-top: 40px;
+        }
+
+        .footer i {
+            color: #c9a87c;
+        }
+
+        [data-theme="light"] .footer i {
+            color: #8a7a6a;
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c9a87c;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b89a6a;
+        }
+
+        /* ===== Selection ===== */
+        ::selection {
+            background: #c9a87c;
+            color: #fff;
+        }
+
+        [data-theme="light"] ::selection {
+            background: #8a7a6a;
+            color: #fff;
         }
 
         /* ===== استجابة ===== */
@@ -759,6 +1035,9 @@
             }
             .header .nav a i {
                 font-size: 1.1em;
+            }
+            .header .nav a.active::after {
+                display: none;
             }
             .header .nav {
                 gap: 6px;
@@ -831,11 +1110,14 @@
                 padding: 10px 20px;
             }
             
-            .cursor, .cursor-dot {
+            .cursor, .cursor-dot, .trail {
                 display: none !important;
             }
             body {
                 cursor: auto !important;
+            }
+            .orb {
+                display: none;
             }
         }
 
@@ -862,10 +1144,15 @@
 </head>
 <body>
 
+    <!-- ===== Orbs ===== -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
     <div class="bg"></div>
     <div class="bg-grid"></div>
 
-    <!-- ===== كورسر سريع ===== -->
+    <!-- ===== كورسر ===== -->
     <div class="cursor" id="cursor"></div>
     <div class="cursor-dot" id="cursorDot"></div>
 
@@ -920,7 +1207,7 @@
 
             <div class="name">Demon</div>
             <div class="title">Full Stack · <span>Minecraft Expert</span></div>
-            <div class="location"><i class="fas fa-map-pin" style="margin-right:6px;"></i>Algeria · <i class="fas fa-code" style="margin:0 4px;"></i> 4+ Years Experience</div>
+            <div class="location"><i class="fas fa-map-pin"></i> Algeria · <i class="fas fa-code"></i> 4+ Years Experience</div>
 
             <div class="status-box">
                 <span class="status-dot dnd" id="statusDot"></span>
@@ -943,7 +1230,7 @@
                 I believe in <strong>clean code</strong>, <strong>real solutions</strong>, and <strong>no fluff</strong>.
                 Currently building next-gen Minecraft plugins & scalable web systems.
                 <br><br>
-                <span class="highlight"><i class="fas fa-quote-left" style="margin-right:6px;"></i>Building systems that just work.<i class="fas fa-quote-right" style="margin-left:6px;"></i></span>
+                <span class="highlight"><i class="fas fa-quote-left"></i> Building systems that just work. <i class="fas fa-quote-right"></i></span>
             </div>
         </section>
 
@@ -997,16 +1284,15 @@
         </section>
 
         <footer class="footer">
-            © 2026 Demon · <i class="fas fa-code"></i> 4+ Years of Experience · <i class="fas fa-heart" style="color: #c9a87c;"></i>
+            © 2026 Demon · <i class="fas fa-code"></i> 4+ Years · <i class="fas fa-heart"></i> Built with passion
         </footer>
     </div>
 
     <script>
         // ============================================================
-        // 🔧 ====== الإعدادات ======
+        // ====== الإعدادات ======
         // ============================================================
 
-        // ===== تغيير الحالة إلى DND =====
         const USER_STATUS = 'dnd';
 
         const skillsData = [
@@ -1068,7 +1354,7 @@
         // ====== كود التشغيل ======
         // ============================================================
 
-        // ----- كورسر سريع -----
+        // ----- كورسر -----
         const cursor = document.getElementById('cursor');
         const dot = document.getElementById('cursorDot');
         let mouseX = 0, mouseY = 0;
@@ -1089,14 +1375,16 @@
 
         document.querySelectorAll('a, button, .skill-card, .project-card, .social-link, .dot-nav, .working-card').forEach(el => {
             el.addEventListener('mouseenter', () => {
-                cursor.style.width = '32px';
-                cursor.style.height = '32px';
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
                 cursor.style.borderColor = '#d4c9b8';
+                cursor.style.borderWidth = '1px';
             });
             el.addEventListener('mouseleave', () => {
                 cursor.style.width = '20px';
                 cursor.style.height = '20px';
                 cursor.style.borderColor = '#c9a87c';
+                cursor.style.borderWidth = '2px';
             });
         });
 
