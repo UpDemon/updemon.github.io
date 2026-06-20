@@ -14,64 +14,109 @@
         }
 
         body {
-            background: #0e0e10;
-            color: #dbd9d4;
+            background: #0d0b0a;
+            color: #d4c9b8;
             font-family: 'Outfit', sans-serif;
-            cursor: default;
+            cursor: none;
             overflow-x: hidden;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
         }
 
-        /* ===== خلفية مثل ديسكورد ===== */
+        /* ===== خلفية ===== */
         .bg {
             position: fixed;
             inset: 0;
-            background: #0e0e10;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(212, 201, 184, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(212, 201, 184, 0.02) 0%, transparent 50%),
+                #0d0b0a;
             z-index: -2;
         }
 
-        /* ===== الكارد الرئيسي (زي بروفايل ديسكورد) ===== */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(212, 201, 184, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 201, 184, 0.015) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+        }
+
+        /* ===== كورسر ===== */
+        .cursor {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #d4c9b8;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: #d4c9b8;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            mix-blend-mode: difference;
+        }
+
+        /* ===== كارد ===== */
         .profile-card {
-            background: #1a1a1e;
-            border-radius: 16px;
-            padding: 32px;
-            max-width: 700px;
+            background: rgba(30, 27, 24, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 201, 184, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 750px;
             width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(212, 201, 184, 0.04);
             transition: 0.3s;
         }
 
         .profile-card:hover {
-            border-color: rgba(255, 255, 255, 0.06);
+            border-color: rgba(212, 201, 184, 0.12);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
         }
 
-        /* ===== الرأس ===== */
+        /* ===== الهيدر ===== */
         .profile-header {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
+            border-bottom: 1px solid rgba(212, 201, 184, 0.06);
+            padding-bottom: 24px;
             margin-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            padding-bottom: 20px;
         }
 
         .profile-avatar {
-            width: 90px;
-            height: 90px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(212, 201, 184, 0.12);
             object-fit: cover;
             flex-shrink: 0;
             transition: 0.3s;
+            box-shadow: 0 0 40px rgba(212, 201, 184, 0.03);
         }
 
         .profile-avatar:hover {
-            border-color: rgba(255, 255, 255, 0.12);
+            border-color: rgba(212, 201, 184, 0.25);
+            transform: scale(1.02);
+            box-shadow: 0 0 60px rgba(212, 201, 184, 0.06);
         }
 
         .profile-info {
@@ -81,125 +126,139 @@
         .profile-info .name-line {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .profile-info .name {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: #f2f0ed;
+            font-size: 2.2em;
+            font-weight: 800;
+            color: #d4c9b8;
             letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #d4c9b8, #b8aa94);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .profile-info .badge {
-            font-size: 0.5em;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 2px 12px;
+            font-size: 0.45em;
+            background: rgba(212, 201, 184, 0.06);
+            border: 1px solid rgba(212, 201, 184, 0.06);
+            padding: 2px 14px;
             border-radius: 30px;
-            color: #b5b3ae;
+            color: #b8aa94;
             font-weight: 400;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
+            -webkit-text-fill-color: #b8aa94;
         }
 
         .profile-info .status-line {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 2px;
+            gap: 10px;
+            margin-top: 4px;
         }
 
         .profile-info .status-dot {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: #43b581;
+            background: #d4c9b8;
             display: inline-block;
             flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(212, 201, 184, 0.1);
+            transition: 0.3s;
         }
 
+        .profile-info .status-dot.online {
+            background: #43b581;
+            box-shadow: 0 0 25px rgba(67, 181, 129, 0.2);
+        }
         .profile-info .status-dot.idle {
             background: #faa61a;
+            box-shadow: 0 0 25px rgba(250, 166, 26, 0.2);
         }
         .profile-info .status-dot.dnd {
             background: #f04747;
+            box-shadow: 0 0 25px rgba(240, 71, 71, 0.2);
         }
         .profile-info .status-dot.offline {
             background: #747f8d;
+            box-shadow: none;
         }
 
         .profile-info .status-text {
-            color: #b5b3ae;
-            font-size: 0.9em;
-            font-weight: 400;
+            color: #b8aa94;
+            font-size: 0.95em;
+            font-weight: 300;
         }
 
         .profile-info .status-text strong {
-            color: #dbd9d4;
+            color: #d4c9b8;
             font-weight: 500;
         }
 
         .profile-info .subtitle {
-            color: #94928e;
-            font-size: 0.85em;
+            color: #8a7e6e;
+            font-size: 0.9em;
             font-weight: 300;
             margin-top: 2px;
-            line-height: 1.4;
         }
 
         .profile-info .subtitle span {
-            color: #b5b3ae;
+            color: #b8aa94;
         }
 
         /* ===== BIO ===== */
         .profile-bio {
             padding: 12px 0 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            margin-bottom: 18px;
+            border-bottom: 1px solid rgba(212, 201, 184, 0.06);
+            margin-bottom: 16px;
         }
 
         .profile-bio .bio-text {
-            color: #b5b3ae;
+            color: #b8aa94;
             font-size: 0.95em;
             font-weight: 300;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .profile-bio .bio-text .highlight {
-            color: #dbd9d4;
+            color: #d4c9b8;
             font-weight: 500;
         }
 
-        .profile-bio .bio-text .highlight-blue {
-            color: #5865f2;
+        .profile-bio .bio-text .highlight-gold {
+            color: #c9a87c;
             font-weight: 500;
         }
 
         /* ===== VIEW FULL BIO ===== */
         .view-bio {
             display: inline-block;
-            color: #5865f2;
+            color: #c9a87c;
             font-size: 0.85em;
             font-weight: 500;
             text-decoration: none;
             padding: 4px 0;
-            margin-bottom: 12px;
-            transition: 0.2s;
+            margin-bottom: 14px;
+            transition: 0.3s;
             border-bottom: 1px solid transparent;
         }
 
         .view-bio:hover {
-            border-bottom-color: #5865f2;
+            border-bottom-color: #c9a87c;
+            color: #d4c9b8;
         }
 
         /* ===== GAME COLLECTION ===== */
         .collection-title {
-            font-size: 0.75em;
+            font-size: 0.7em;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #94928e;
+            letter-spacing: 2px;
+            color: #8a7e6e;
             font-weight: 600;
-            margin: 18px 0 10px;
+            margin: 16px 0 10px;
         }
 
         .collection-list {
@@ -209,28 +268,30 @@
         }
 
         .collection-item {
-            color: #b5b3ae;
+            color: #b8aa94;
             font-size: 0.9em;
             font-weight: 400;
-            padding: 6px 12px;
-            border-radius: 6px;
-            transition: 0.15s;
+            padding: 8px 14px;
+            border-radius: 10px;
+            transition: 0.2s;
             cursor: default;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            border: 1px solid transparent;
         }
 
         .collection-item:hover {
-            background: rgba(255, 255, 255, 0.02);
-            color: #dbd9d4;
+            background: rgba(212, 201, 184, 0.03);
+            border-color: rgba(212, 201, 184, 0.04);
+            color: #d4c9b8;
         }
 
         .collection-item .icon {
             font-size: 1em;
-            width: 20px;
+            width: 24px;
             text-align: center;
-            color: #5865f2;
+            color: #c9a87c;
         }
 
         .collection-item .text {
@@ -238,217 +299,228 @@
         }
 
         .collection-item .shortcut {
-            color: #4a4a4e;
-            font-size: 0.75em;
+            color: #5a4f42;
+            font-size: 0.7em;
             font-weight: 300;
+            background: rgba(212, 201, 184, 0.03);
+            padding: 2px 10px;
+            border-radius: 6px;
         }
 
-        /* ===== SKILLS (مخفي لكن موجود) ===== */
+        /* ===== SKILLS ===== */
         .skills-section {
-            margin-top: 18px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(212, 201, 184, 0.06);
         }
 
         .skills-section .section-label {
             font-size: 0.7em;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #94928e;
+            letter-spacing: 2px;
+            color: #8a7e6e;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 6px;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 8px;
         }
 
         .skill-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            padding: 8px 12px;
+            background: rgba(212, 201, 184, 0.02);
+            border: 1px solid rgba(212, 201, 184, 0.04);
+            border-radius: 10px;
+            padding: 10px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.2s;
+            transition: 0.25s;
         }
 
         .skill-item:hover {
-            background: rgba(255, 255, 255, 0.03);
-            border-color: rgba(255, 255, 255, 0.05);
+            background: rgba(212, 201, 184, 0.04);
+            border-color: rgba(212, 201, 184, 0.06);
+            transform: translateY(-1px);
         }
 
         .skill-item .left {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .skill-item .left .icon {
-            font-size: 1em;
+            font-size: 1.1em;
         }
 
         .skill-item .left .name {
-            font-size: 0.82em;
-            color: #b5b3ae;
+            font-size: 0.85em;
+            color: #b8aa94;
         }
 
         .skill-item .right {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .skill-item .bar {
-            width: 50px;
+            width: 60px;
             height: 3px;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(212, 201, 184, 0.06);
             border-radius: 3px;
             overflow: hidden;
         }
 
         .skill-item .bar .fill {
             height: 100%;
-            background: #5865f2;
+            background: linear-gradient(90deg, #c9a87c, #d4c9b8);
             border-radius: 3px;
-            transition: 1s;
+            transition: 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             width: 0%;
         }
 
         .skill-item .percent {
-            font-size: 0.65em;
-            color: #4a4a4e;
-            min-width: 28px;
+            font-size: 0.7em;
+            color: #5a4f42;
+            min-width: 30px;
             text-align: right;
+            font-weight: 300;
         }
 
         /* ===== PROJECTS ===== */
         .projects-section {
-            margin-top: 18px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(212, 201, 184, 0.06);
         }
 
         .projects-section .section-label {
             font-size: 0.7em;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #94928e;
+            letter-spacing: 2px;
+            color: #8a7e6e;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 10px;
         }
 
         .project-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 12px 10px;
+            background: rgba(212, 201, 184, 0.02);
+            border: 1px solid rgba(212, 201, 184, 0.04);
+            border-radius: 12px;
+            padding: 14px 12px;
             text-align: center;
-            transition: 0.2s;
+            transition: 0.25s;
         }
 
         .project-item:hover {
-            background: rgba(255, 255, 255, 0.03);
-            border-color: rgba(255, 255, 255, 0.05);
+            background: rgba(212, 201, 184, 0.04);
+            border-color: rgba(212, 201, 184, 0.06);
+            transform: translateY(-2px);
         }
 
         .project-item .icon {
-            font-size: 1.8em;
-            margin-bottom: 2px;
+            font-size: 2em;
+            margin-bottom: 4px;
         }
         .project-item .title {
-            font-size: 0.8em;
+            font-size: 0.85em;
             font-weight: 500;
-            color: #dbd9d4;
+            color: #d4c9b8;
         }
         .project-item .desc {
-            font-size: 0.65em;
-            color: #4a4a4e;
+            font-size: 0.7em;
+            color: #5a4f42;
             margin-top: 2px;
         }
 
         /* ===== SOCIAL ===== */
         .social-section {
-            margin-top: 18px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(212, 201, 184, 0.06);
         }
 
         .social-section .section-label {
             font-size: 0.7em;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #94928e;
+            letter-spacing: 2px;
+            color: #8a7e6e;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .social-links {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
         .social-link {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(212, 201, 184, 0.02);
+            border: 1px solid rgba(212, 201, 184, 0.04);
             border-radius: 30px;
-            padding: 6px 16px;
-            color: #b5b3ae;
+            padding: 8px 20px;
+            color: #b8aa94;
             text-decoration: none;
-            font-size: 0.8em;
-            transition: 0.2s;
+            font-size: 0.85em;
+            transition: 0.25s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .social-link:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.06);
-            color: #dbd9d4;
+            background: rgba(212, 201, 184, 0.04);
+            border-color: rgba(212, 201, 184, 0.08);
+            color: #d4c9b8;
+            transform: translateY(-1px);
         }
 
         .social-link .sicon {
-            font-size: 1em;
+            font-size: 1.1em;
         }
 
         /* ===== FOOTER ===== */
         footer {
             text-align: center;
             padding: 24px 20px 4px;
-            color: #3a3a3e;
+            color: #3a332c;
             font-size: 0.7em;
-            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(212, 201, 184, 0.03);
             margin-top: 20px;
             letter-spacing: 0.5px;
         }
 
+        footer .heart {
+            color: #c9a87c;
+        }
+
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
             .profile-card {
-                padding: 20px;
+                padding: 24px;
             }
             .profile-header {
                 flex-direction: column;
                 text-align: center;
-                gap: 12px;
+                gap: 14px;
             }
             .profile-avatar {
-                width: 70px;
-                height: 70px;
+                width: 80px;
+                height: 80px;
             }
             .profile-info .name {
-                font-size: 1.5em;
+                font-size: 1.8em;
                 justify-content: center;
             }
             .profile-info .status-line {
@@ -478,12 +550,15 @@
             }
         }
 
-        @media (max-width: 400px) {
+        @media (max-width: 450px) {
             .projects-grid {
                 grid-template-columns: 1fr;
             }
             .profile-card {
                 padding: 16px;
+            }
+            .profile-info .name {
+                font-size: 1.4em;
             }
         }
     </style>
@@ -491,6 +566,9 @@
 <body>
 
     <div class="bg"></div>
+    <div class="bg-grid"></div>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
 
     <div class="profile-card">
 
@@ -506,7 +584,7 @@
                     <span class="badge">2yfu 🐱 #1</span>
                 </div>
                 <div class="status-line">
-                    <span class="status-dot" id="statusDot"></span>
+                    <span class="status-dot online" id="statusDot"></span>
                     <span class="status-text" id="statusLabel"><strong>Demon</strong> · 🟢 Online</span>
                 </div>
                 <div class="subtitle">
@@ -519,7 +597,7 @@
         <div class="profile-bio">
             <div class="bio-text">
                 <span class="highlight">Demon,</span> 2yfu 🐱 #1 · <span class="highlight">Minecraft Configurator</span> &amp; <span class="highlight">Server Setup Expert</span>.<br>
-                Portfolio <span class="highlight-blue">"SOON"</span> · Building clean, high-performance systems.
+                Portfolio <span class="highlight-gold">"SOON"</span> · Building clean, high-performance systems.
             </div>
         </div>
 
@@ -551,7 +629,7 @@
             </div>
         </div>
 
-        <!-- ===== SKILLS (مخفي لكن موجود) ===== -->
+        <!-- ===== SKILLS ===== -->
         <div class="skills-section">
             <div class="section-label">🛠️ Skills</div>
             <div class="skills-grid" id="skillsGrid"></div>
@@ -575,19 +653,19 @@
         </div>
 
         <footer>
-            © 2026 Demon · Built with ❤️ · No sugarcoating, just code.
+            © 2026 Demon · Built with <span class="heart">❤</span> · No sugarcoating, just code.
         </footer>
     </div>
 
     <script>
         // ============================================================
-        // 🔧 ====== الحالة (غيّر من هنا) ======
+        // 🔧 ====== الإعدادات (عدّل من هنا) ======
         // ============================================================
-        const USER_STATUS = 'online'; // online / idle / dnd / offline
 
-        // ============================================================
-        // ====== المهارات (عدّل أو أضف) ======
-        // ============================================================
+        // الحالة: 'online' أو 'idle' أو 'dnd' أو 'offline'
+        const USER_STATUS = 'online';
+
+        // المهارات (عدّل أو أضف)
         const skillsData = [
             { name: 'Node.js & Discord.js', percent: 95, icon: '🟢' },
             { name: 'Minecraft Configuration', percent: 100, icon: '⛏️' },
@@ -601,9 +679,7 @@
             { name: 'Lua (FiveM / Roblox)', percent: 65, icon: '🌙' }
         ];
 
-        // ============================================================
-        // ====== المشاريع (عدّل أو أضف) ======
-        // ============================================================
+        // المشاريع (عدّل أو أضف)
         const projectsData = [
             { icon: '⚙️', title: 'Minecraft Servers', desc: 'High-performance' },
             { icon: '🤖', title: 'Discord Bots', desc: 'Advanced bots' },
@@ -614,15 +690,40 @@
         ];
 
         // ============================================================
-        // ====== كود العرض ======
+        // ====== كود التشغيل ======
         // ============================================================
+
+        // ----- كورسر -----
+        const cursor = document.getElementById('cursor');
+        const dot = document.getElementById('cursorDot');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+        });
+
+        // تكبير الكورسر عند المرور
+        document.querySelectorAll('a, button, .skill-item, .project-item, .collection-item, .view-bio').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '32px';
+                cursor.style.height = '32px';
+                cursor.style.borderColor = '#c9a87c';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '18px';
+                cursor.style.height = '18px';
+                cursor.style.borderColor = '#d4c9b8';
+            });
+        });
 
         // ----- الحالة -----
         const statusDot = document.getElementById('statusDot');
         const statusLabel = document.getElementById('statusLabel');
 
         const statusMap = {
-            online: { class: '', label: '🟢 Online' },
+            online: { class: 'online', label: '🟢 Online' },
             idle: { class: 'idle', label: '🟡 Busy Now' },
             dnd: { class: 'dnd', label: '🔴 Do Not Disturb' },
             offline: { class: 'offline', label: '⚫ Offline' }
