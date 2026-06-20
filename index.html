@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demon | Portfolio</title>
+    <!-- Font Awesome 6 (free) for crisp icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
@@ -19,51 +21,36 @@
 
         body {
             font-family: 'Outfit', sans-serif;
-            cursor: default;
+            cursor: none;
             overflow-x: hidden;
-            transition: background 0.5s, color 0.5s;
+            transition: background 0.4s, color 0.4s;
         }
 
         /* ===== Dark Mode ===== */
         [data-theme="dark"] {
             --bg: #0d0b0a;
             --bg-card: rgba(20, 18, 16, 0.85);
-            --bg-card-hover: rgba(30, 27, 24, 0.9);
             --text: #d4c9b8;
             --text-secondary: #b8aa94;
             --text-muted: #5a4f42;
             --border: rgba(212, 201, 184, 0.06);
             --border-hover: rgba(212, 201, 184, 0.12);
-            --shadow: rgba(0, 0, 0, 0.5);
+            --shadow: rgba(0, 0, 0, 0.6);
             --gradient: linear-gradient(135deg, #d4c9b8, #c9a87c, #d4c9b8);
-            --header-bg: rgba(13, 11, 10, 0.9);
-            --glass: rgba(20, 18, 16, 0.6);
-            --accent: #c9a87c;
-            --accent-hover: #d4c9b8;
-            --scrollbar: #2a2520;
-            --dot-bg: rgba(212, 201, 184, 0.06);
-            --dot-active: #c9a87c;
+            --header-bg: rgba(13, 11, 10, 0.85);
         }
 
-        /* ===== Light Mode (أنيق وجميل) ===== */
         [data-theme="light"] {
             --bg: #f5f0eb;
             --bg-card: rgba(255, 252, 248, 0.92);
-            --bg-card-hover: rgba(245, 240, 235, 0.95);
             --text: #2a2520;
-            --text-secondary: #6a5f52;
-            --text-muted: #a89888;
+            --text-secondary: #5a4f42;
+            --text-muted: #9a8a7a;
             --border: rgba(42, 37, 32, 0.06);
             --border-hover: rgba(42, 37, 32, 0.12);
-            --shadow: rgba(0, 0, 0, 0.06);
-            --gradient: linear-gradient(135deg, #2a2520, #b8aa94, #2a2520);
-            --header-bg: rgba(245, 240, 235, 0.92);
-            --glass: rgba(255, 252, 248, 0.7);
-            --accent: #b8aa94;
-            --accent-hover: #8a7a6a;
-            --scrollbar: #d4c9b8;
-            --dot-bg: rgba(42, 37, 32, 0.06);
-            --dot-active: #b8aa94;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --gradient: linear-gradient(135deg, #2a2520, #c9a87c, #2a2520);
+            --header-bg: rgba(245, 240, 235, 0.9);
         }
 
         body {
@@ -80,13 +67,13 @@
                 radial-gradient(circle at 70% 80%, rgba(212, 201, 184, 0.03) 0%, transparent 50%),
                 var(--bg);
             z-index: -2;
-            transition: 0.5s;
+            transition: 0.4s;
         }
 
         [data-theme="light"] .bg {
             background:
-                radial-gradient(circle at 30% 20%, rgba(201, 168, 124, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(201, 168, 124, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 30% 20%, rgba(201, 168, 124, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(201, 168, 124, 0.04) 0%, transparent 50%),
                 var(--bg);
         }
 
@@ -99,14 +86,44 @@
             background-size: 60px 60px;
             z-index: -1;
             opacity: 0.3;
-            transition: 0.5s;
+            transition: 0.4s;
         }
 
         [data-theme="light"] .bg-grid {
-            opacity: 0.08;
-            background-image:
-                linear-gradient(rgba(42, 37, 32, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(42, 37, 32, 0.05) 1px, transparent 1px);
+            opacity: 0.1;
+        }
+
+        /* ===== كورسر سريع ===== */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #c9a87c;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: 0.03s linear;
+            mix-blend-mode: difference;
+        }
+
+        [data-theme="light"] .cursor {
+            border-color: #8a7a6a;
+        }
+
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: #c9a87c;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: 0.02s linear;
+            mix-blend-mode: difference;
+        }
+
+        [data-theme="light"] .cursor-dot {
+            background: #8a7a6a;
         }
 
         /* ===== الهيدر ===== */
@@ -145,7 +162,7 @@
         .header .nav {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 20px;
         }
 
         .header .nav a {
@@ -154,9 +171,17 @@
             font-size: 0.85em;
             font-weight: 400;
             transition: 0.25s;
-            padding: 6px 16px;
+            padding: 6px 14px;
             border-radius: 30px;
             border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header .nav a i {
+            font-size: 0.9em;
+            color: var(--text-muted);
         }
 
         .header .nav a:hover {
@@ -165,23 +190,32 @@
         }
 
         .header .nav a.active {
-            color: var(--accent);
-            border-color: var(--border-hover);
+            color: #c9a87c;
+            border-color: rgba(201, 168, 124, 0.15);
         }
 
+        [data-theme="light"] .header .nav a.active {
+            color: #8a7a6a;
+        }
+
+        /* ===== زر التبديل ===== */
         .theme-toggle {
             background: var(--border);
             border: 1px solid var(--border-hover);
             border-radius: 30px;
-            padding: 6px 16px;
+            padding: 6px 14px;
             color: var(--text-secondary);
             cursor: pointer;
-            font-size: 0.85em;
+            font-size: 0.9em;
             transition: 0.25s;
             display: flex;
             align-items: center;
             gap: 6px;
             font-family: 'Outfit', sans-serif;
+        }
+
+        .theme-toggle i {
+            font-size: 0.9em;
         }
 
         .theme-toggle:hover {
@@ -222,17 +256,24 @@
         }
 
         .sidebar .dot-nav:hover {
-            border-color: var(--accent);
-            background: var(--dot-bg);
+            border-color: #c9a87c;
+            background: rgba(201, 168, 124, 0.1);
+        }
+
+        [data-theme="light"] .sidebar .dot-nav:hover {
+            border-color: #8a7a6a;
+            background: rgba(138, 122, 106, 0.1);
         }
 
         .sidebar .dot-nav.active {
-            border-color: var(--dot-active);
-            background: var(--dot-active);
+            border-color: #c9a87c;
+            background: #c9a87c;
             box-shadow: 0 0 20px rgba(201, 168, 124, 0.2);
         }
 
         [data-theme="light"] .sidebar .dot-nav.active {
+            border-color: #8a7a6a;
+            background: #8a7a6a;
             box-shadow: 0 0 20px rgba(138, 122, 106, 0.2);
         }
 
@@ -283,7 +324,7 @@
         }
 
         .hero .avatar:hover {
-            border-color: var(--accent);
+            border-color: #c9a87c;
             transform: scale(1.02);
         }
 
@@ -307,7 +348,11 @@
         }
 
         .hero .title span {
-            color: var(--accent);
+            color: #c9a87c;
+        }
+
+        [data-theme="light"] .hero .title span {
+            color: #8a7a6a;
         }
 
         .hero .location {
@@ -409,8 +454,12 @@
         }
 
         .about-text .highlight {
-            color: var(--accent);
+            color: #c9a87c;
             font-weight: 400;
+        }
+
+        [data-theme="light"] .about-text .highlight {
+            color: #8a7a6a;
         }
 
         /* ===== Skills ===== */
@@ -434,7 +483,7 @@
         }
 
         .skill-card:hover {
-            background: var(--bg-card-hover);
+            background: var(--border-hover);
             border-color: var(--border-hover);
             transform: translateY(-2px);
         }
@@ -447,6 +496,8 @@
 
         .skill-card .left .icon {
             font-size: 1.2em;
+            width: 24px;
+            text-align: center;
         }
 
         .skill-card .left .name {
@@ -470,7 +521,7 @@
 
         .skill-card .bar .fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--text));
+            background: linear-gradient(90deg, #c9a87c, var(--text));
             border-radius: 3px;
             transition: 1.2s;
             width: 0%;
@@ -502,7 +553,7 @@
         }
 
         .project-card:hover {
-            background: var(--bg-card-hover);
+            background: var(--border-hover);
             border-color: var(--border-hover);
             transform: translateY(-4px);
         }
@@ -545,8 +596,13 @@
             box-shadow: 0 4px 20px var(--shadow);
         }
 
+        .social-link i {
+            font-size: 1.1em;
+            color: var(--text-muted);
+        }
+
         .social-link:hover {
-            background: var(--bg-card-hover);
+            background: var(--border-hover);
             border-color: var(--border-hover);
             color: var(--text);
             transform: translateY(-2px);
@@ -574,12 +630,21 @@
                 font-size: 0.75em;
                 padding: 4px 10px;
             }
+            .header .nav a span {
+                display: none;
+            }
+            .header .nav a i {
+                font-size: 1.1em;
+            }
             .header .nav {
-                gap: 4px;
+                gap: 6px;
             }
             .theme-toggle {
                 font-size: 0.75em;
                 padding: 4px 10px;
+            }
+            .theme-toggle span {
+                display: none;
             }
 
             .container {
@@ -649,21 +714,6 @@
                 padding: 4px 8px;
             }
         }
-
-        /* ===== سكرول بار أنيق ===== */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--scrollbar);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
     </style>
 </head>
 <body>
@@ -671,16 +721,20 @@
     <div class="bg"></div>
     <div class="bg-grid"></div>
 
+    <!-- ===== كورسر سريع ===== -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
     <!-- ===== الهيدر ===== -->
     <header class="header">
         <div class="logo">Demon</div>
         <nav class="nav">
-            <a href="#home" class="active">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-            <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+            <a href="#home" class="active"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="#about"><i class="fas fa-user"></i><span>About</span></a>
+            <a href="#skills"><i class="fas fa-code"></i><span>Skills</span></a>
+            <a href="#projects"><i class="fas fa-rocket"></i><span>Projects</span></a>
+            <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i><span> Dark</span></button>
         </nav>
     </header>
 
@@ -717,18 +771,18 @@
 
             <div class="name">Demon</div>
             <div class="title">Full Stack · <span>Minecraft Expert</span></div>
-            <div class="location">🇩🇿 Algeria · 15 Nov 2011</div>
+            <div class="location"><i class="fas fa-map-pin" style="margin-right:6px;"></i>Algeria · 15 Nov 2011</div>
 
             <div class="status-box">
-                <span class="status-dot dnd" id="statusDot"></span>
-                <span class="status-label" id="statusLabel"><strong>Demon</strong> · 🔴 Do Not Disturb</span>
+                <span class="status-dot online" id="statusDot"></span>
+                <span class="status-label" id="statusLabel"><strong>Demon</strong> · 🟢 Online</span>
             </div>
         </section>
 
         <!-- ===== ABOUT ===== -->
         <section class="section" id="about">
             <div class="section-title">
-                👤 About Me
+                <i class="fas fa-user-astronaut"></i> About Me
                 <span class="tag">من أنا</span>
             </div>
             <div class="about-text">
@@ -740,14 +794,14 @@
                 I believe in <strong>clean code</strong>, <strong>real solutions</strong>, and <strong>no fluff</strong>.
                 Currently building next-gen Minecraft plugins & scalable web systems.
                 <br><br>
-                <span class="highlight">"Building systems that just work."</span>
+                <span class="highlight"><i class="fas fa-quote-left" style="margin-right:6px;"></i>Building systems that just work.<i class="fas fa-quote-right" style="margin-left:6px;"></i></span>
             </div>
         </section>
 
         <!-- ===== SKILLS ===== -->
         <section class="section" id="skills">
             <div class="section-title">
-                🛠️ Skills
+                <i class="fas fa-cogs"></i> Skills
                 <span class="tag">قابلة للتعديل</span>
             </div>
             <div class="skills-grid" id="skillsGrid"></div>
@@ -756,7 +810,7 @@
         <!-- ===== PROJECTS ===== -->
         <section class="section" id="projects">
             <div class="section-title">
-                🚀 Projects
+                <i class="fas fa-project-diagram"></i> Projects
                 <span class="tag">أعمالي</span>
             </div>
             <div class="projects-grid" id="projectsGrid"></div>
@@ -765,19 +819,20 @@
         <!-- ===== CONTACT ===== -->
         <section class="section" id="contact">
             <div class="section-title">
-                📬 Connect
+                <i class="fas fa-address-card"></i> Connect
                 <span class="tag">تواصل</span>
             </div>
             <div class="social-links">
-                <a href="#" class="social-link"><span>🐦</span> Twitter</a>
-                <a href="#" class="social-link"><span>💬</span> Discord</a>
-                <a href="#" class="social-link"><span>🐙</span> GitHub</a>
-                <a href="#" class="social-link"><span>📺</span> YouTube</a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#" class="social-link"><i class="fab fa-discord"></i> Discord</a>
+                <a href="#" class="social-link"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="#" class="social-link"><i class="fab fa-tiktok"></i> TikTok</a>
             </div>
         </section>
 
         <footer class="footer">
-            © 2026 Demon · Built with ❤️ and ☕ · No sugarcoating, just code.
+            © 2026 Demon · Built with <i class="fas fa-heart" style="color: #c9a87c;"></i> and <i class="fas fa-mug-hot"></i> · No sugarcoating, just code.
         </footer>
     </div>
 
@@ -786,34 +841,57 @@
         // 🔧 ====== الإعدادات ======
         // ============================================================
 
-        // الحالة: online / idle / dnd / offline
-        const USER_STATUS = 'dnd';
+        const USER_STATUS = 'online';
 
         const skillsData = [
-            { name: 'Node.js & Discord.js', percent: 95, icon: '🟢' },
-            { name: 'Minecraft Configuration', percent: 100, icon: '⛏️' },
-            { name: 'Full Stack Web', percent: 90, icon: '🌐' },
-            { name: 'Python', percent: 85, icon: '🐍' },
-            { name: 'JavaScript / TypeScript', percent: 92, icon: '📜' },
-            { name: 'React & Vue.js', percent: 80, icon: '⚛️' },
-            { name: 'PHP & MySQL', percent: 75, icon: '🐘' },
-            { name: 'C# / .NET', percent: 70, icon: '🔷' },
-            { name: 'Java (Spigot/Paper)', percent: 88, icon: '☕' },
-            { name: 'Lua (FiveM / Roblox)', percent: 65, icon: '🌙' }
+            { name: 'Node.js & Discord.js', percent: 95, icon: 'fa-brands fa-node-js' },
+            { name: 'Minecraft Configuration', percent: 100, icon: 'fa-solid fa-cubes' },
+            { name: 'Full Stack Web', percent: 90, icon: 'fa-solid fa-globe' },
+            { name: 'Python', percent: 85, icon: 'fa-brands fa-python' },
+            { name: 'JavaScript / TypeScript', percent: 92, icon: 'fa-brands fa-js' },
+            { name: 'React & Vue.js', percent: 80, icon: 'fa-brands fa-react' },
+            { name: 'PHP & MySQL', percent: 75, icon: 'fa-brands fa-php' },
+            { name: 'C# / .NET', percent: 70, icon: 'fa-solid fa-code' },
+            { name: 'Java (Spigot/Paper)', percent: 88, icon: 'fa-brands fa-java' },
+            { name: 'Lua (FiveM / Roblox)', percent: 65, icon: 'fa-solid fa-moon' }
         ];
 
         const projectsData = [
-            { icon: '⚙️', title: 'Minecraft Servers', desc: 'High-performance setups' },
-            { icon: '🤖', title: 'Discord Bots', desc: 'Advanced Discord.js bots' },
-            { icon: '🌐', title: 'Full Stack Web', desc: 'Responsive apps & APIs' },
-            { icon: '🎮', title: 'Game Dev', desc: 'Interactive experiences' },
-            { icon: '🔧', title: 'Custom Plugins', desc: 'Spigot / Paper plugins' },
-            { icon: '📊', title: 'Economy Systems', desc: 'Vault & CoinsEngine' }
+            { icon: 'fa-solid fa-server', title: 'Minecraft Servers', desc: 'High-performance setups' },
+            { icon: 'fa-solid fa-robot', title: 'Discord Bots', desc: 'Advanced Discord.js bots' },
+            { icon: 'fa-solid fa-laptop-code', title: 'Full Stack Web', desc: 'Responsive apps & APIs' },
+            { icon: 'fa-solid fa-gamepad', title: 'Game Dev', desc: 'Interactive experiences' },
+            { icon: 'fa-solid fa-puzzle-piece', title: 'Custom Plugins', desc: 'Spigot / Paper plugins' },
+            { icon: 'fa-solid fa-coins', title: 'Economy Systems', desc: 'Vault & CoinsEngine' }
         ];
 
         // ============================================================
         // ====== كود التشغيل ======
         // ============================================================
+
+        // ----- كورسر سريع -----
+        const cursor = document.getElementById('cursor');
+        const dot = document.getElementById('cursorDot');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, .skill-card, .project-card, .social-link, .dot-nav').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '32px';
+                cursor.style.height = '32px';
+                cursor.style.borderColor = '#d4c9b8';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursor.style.borderColor = '#c9a87c';
+            });
+        });
 
         // ----- الحالة -----
         const statusDot = document.getElementById('statusDot');
@@ -822,7 +900,7 @@
         const statusMap = {
             online: { class: 'online', label: '🟢 Online' },
             idle: { class: 'idle', label: '🟡 Busy Now' },
-            dnd: { class: 'dnd', label: '🔴 Do Not Disturb' },
+            dnd: { class: 'dnd', label: '🔴 DND' },
             offline: { class: 'offline', label: '⚫ Offline' }
         };
 
@@ -837,7 +915,7 @@
             card.className = 'skill-card';
             card.innerHTML = `
                 <div class="left">
-                    <span class="icon">${s.icon}</span>
+                    <span class="icon"><i class="${s.icon}"></i></span>
                     <span class="name">${s.name}</span>
                 </div>
                 <div class="right">
@@ -857,7 +935,7 @@
             const card = document.createElement('div');
             card.className = 'project-card';
             card.innerHTML = `
-                <div class="icon">${p.icon}</div>
+                <div class="icon"><i class="${p.icon}"></i></div>
                 <div class="title">${p.title}</div>
                 <div class="desc">${p.desc}</div>
             `;
@@ -872,7 +950,7 @@
             const current = html.getAttribute('data-theme');
             const next = current === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', next);
-            themeToggle.textContent = next === 'dark' ? '🌙 Dark' : '☀️ Light';
+            themeToggle.innerHTML = next === 'dark' ? '<i class="fas fa-moon"></i><span> Dark</span>' : '<i class="fas fa-sun"></i><span> Light</span>';
         });
 
         // ===== التنقل بالنقاط =====
@@ -890,7 +968,7 @@
 
         // ===== تحديث النقاط والناف =====
         let isScrolling = false;
-        const navLinks = document.querySelectorAll('.header .nav a:not(.theme-toggle)');
+        const navLinks = document.querySelectorAll('.header .nav a');
 
         window.addEventListener('scroll', () => {
             if (!isScrolling) {
